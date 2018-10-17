@@ -13,7 +13,7 @@ class TerritoryViewController: UICollectionViewController {
         super.viewDidLoad()
         
         title = "Territory"
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(TerritoryCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = .gray
     }
     
@@ -26,8 +26,9 @@ class TerritoryViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! TerritoryCell
         cell.backgroundColor = .white
+        cell.configure(with: "Cell \(indexPath.row)")
         return cell
     }
 }

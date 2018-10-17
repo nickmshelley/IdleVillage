@@ -14,6 +14,8 @@
 		326F4F5221727EBD00A6BA37 /* IdleVillageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F5121727EBD00A6BA37 /* IdleVillageUITests.swift */; };
 		326F4F602172807800A6BA37 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F5F2172807800A6BA37 /* AppCoordinator.swift */; };
 		326F4F622172811900A6BA37 /* TerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F612172811900A6BA37 /* TerritoryViewController.swift */; };
+		3625177D2177A205004FCA49 /* TerritoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625177C2177A205004FCA49 /* TerritoryCell.swift */; };
+		3625177F2177A758004FCA49 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625177E2177A758004FCA49 /* UIView+Layout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		326F4F5321727EBD00A6BA37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		326F4F5F2172807800A6BA37 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = ../../idlevillage/IdleVillage/AppCoordinator.swift; sourceTree = "<group>"; };
 		326F4F612172811900A6BA37 /* TerritoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoryViewController.swift; sourceTree = "<group>"; };
+		3625177C2177A205004FCA49 /* TerritoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoryCell.swift; sourceTree = "<group>"; };
+		3625177E2177A758004FCA49 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				326F4F3121727EBC00A6BA37 /* AppDelegate.swift */,
 				326F4F5F2172807800A6BA37 /* AppCoordinator.swift */,
 				326F4F612172811900A6BA37 /* TerritoryViewController.swift */,
+				3625177C2177A205004FCA49 /* TerritoryCell.swift */,
+				3625177E2177A758004FCA49 /* UIView+Layout.swift */,
 				326F4F3821727EBC00A6BA37 /* Assets.xcassets */,
 				326F4F3A21727EBC00A6BA37 /* LaunchScreen.storyboard */,
 				326F4F3D21727EBC00A6BA37 /* Info.plist */,
@@ -257,7 +263,9 @@
 			files = (
 				326F4F602172807800A6BA37 /* AppCoordinator.swift in Sources */,
 				326F4F3221727EBC00A6BA37 /* AppDelegate.swift in Sources */,
+				3625177D2177A205004FCA49 /* TerritoryCell.swift in Sources */,
 				326F4F622172811900A6BA37 /* TerritoryViewController.swift in Sources */,
+				3625177F2177A758004FCA49 /* UIView+Layout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

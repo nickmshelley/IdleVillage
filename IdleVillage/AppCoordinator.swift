@@ -17,7 +17,10 @@ final class AppCoordinator {
     
     func start() {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: 30, height: 30)
+        flowLayout.itemSize = CGSize(width: 120, height: 120)
+        let space: CGFloat = 12
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.sectionInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
         let territoryViewController = TerritoryViewController(collectionViewLayout: flowLayout)
         territoryViewController.tabBarItem = UITabBarItem(title: "Territory", image: nil, tag: 0)
         
