@@ -16,6 +16,9 @@
 		326F4F622172811900A6BA37 /* TerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F612172811900A6BA37 /* TerritoryViewController.swift */; };
 		3625177D2177A205004FCA49 /* TerritoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625177C2177A205004FCA49 /* TerritoryCell.swift */; };
 		3625177F2177A758004FCA49 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625177E2177A758004FCA49 /* UIView+Layout.swift */; };
+		362517812177E3D0004FCA49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517802177E3D0004FCA49 /* GameState.swift */; };
+		362517842177E42E004FCA49 /* Villager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517832177E42E004FCA49 /* Villager.swift */; };
+		362517862177E4E0004FCA49 /* Territory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517852177E4E0004FCA49 /* Territory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		326F4F612172811900A6BA37 /* TerritoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoryViewController.swift; sourceTree = "<group>"; };
 		3625177C2177A205004FCA49 /* TerritoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoryCell.swift; sourceTree = "<group>"; };
 		3625177E2177A758004FCA49 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		362517802177E3D0004FCA49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		362517832177E42E004FCA49 /* Villager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Villager.swift; sourceTree = "<group>"; };
+		362517852177E4E0004FCA49 /* Territory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Territory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 				326F4F612172811900A6BA37 /* TerritoryViewController.swift */,
 				3625177C2177A205004FCA49 /* TerritoryCell.swift */,
 				3625177E2177A758004FCA49 /* UIView+Layout.swift */,
+				362517822177E41B004FCA49 /* Model */,
 				326F4F3821727EBC00A6BA37 /* Assets.xcassets */,
 				326F4F3A21727EBC00A6BA37 /* LaunchScreen.storyboard */,
 				326F4F3D21727EBC00A6BA37 /* Info.plist */,
@@ -129,6 +136,16 @@
 				326F4F5321727EBD00A6BA37 /* Info.plist */,
 			);
 			path = IdleVillageUITests;
+			sourceTree = "<group>";
+		};
+		362517822177E41B004FCA49 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				362517802177E3D0004FCA49 /* GameState.swift */,
+				362517832177E42E004FCA49 /* Villager.swift */,
+				362517852177E4E0004FCA49 /* Territory.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +279,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				326F4F602172807800A6BA37 /* AppCoordinator.swift in Sources */,
+				362517842177E42E004FCA49 /* Villager.swift in Sources */,
 				326F4F3221727EBC00A6BA37 /* AppDelegate.swift in Sources */,
 				3625177D2177A205004FCA49 /* TerritoryCell.swift in Sources */,
+				362517812177E3D0004FCA49 /* GameState.swift in Sources */,
 				326F4F622172811900A6BA37 /* TerritoryViewController.swift in Sources */,
+				362517862177E4E0004FCA49 /* Territory.swift in Sources */,
 				3625177F2177A758004FCA49 /* UIView+Layout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
