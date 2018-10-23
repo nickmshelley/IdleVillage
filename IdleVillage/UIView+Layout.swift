@@ -15,9 +15,9 @@ extension UIView {
     }
     
     func inset(in view: UIView, by amount: CGFloat) {
-        topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: amount)
-        leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: amount)
-        trailingAnchor.constraint(greaterThanOrEqualTo: view.trailingAnchor, constant: amount)
-        bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor, constant: amount)
+        topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: amount).isActive = true
+        leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: amount).isActive = true
+        trailingAnchor.constraint(greaterThanOrEqualTo: view.trailingAnchor, constant: amount).isActive = true
+        bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor, constant: amount).isActive = true
     }
 }

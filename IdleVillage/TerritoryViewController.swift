@@ -8,27 +8,48 @@
 
 import UIKit
 
+private enum SectionType {
+    case owned
+    case monster
+}
+
+private struct Section {
+    let title: String
+    let type: SectionType
+    let items: [String]
+}
+
 class TerritoryViewController: UICollectionViewController {
+    private var sections = [Section]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Territory"
         collectionView.register(TerritoryCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = .gray
+        
+        let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.currentOccupancy) of \($0.maxOccupancy))" }
+        let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
+        
+        let monsters = GameState.shared.monsters.map { "Monster\n(\($0.health))" }
+        let monsterSection = Section(title: "Monster Territories", type: .monster, items: monsters)
+        
+        sections = [ownedSection, monsterSection]
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return sections.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return sections[section].items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! TerritoryCell
         cell.backgroundColor = .white
-        cell.configure(with: "Cell \(indexPath.row)")
+        cell.configure(with: sections[indexPath.section].items[indexPath.row])
         return cell
     }
 }

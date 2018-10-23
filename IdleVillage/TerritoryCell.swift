@@ -17,8 +17,9 @@ class TerritoryCell: UICollectionViewCell {
         contentView.addSubview(textLabel)
         textLabel.numberOfLines = 0
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.inset(in: contentView, by: 16)
+        textLabel.inset(in: contentView, by: 0)
         textLabel.center(in: contentView)
+        textLabel.textAlignment = .center
     }
     
     required init?(coder aDecoder: NSCoder) {

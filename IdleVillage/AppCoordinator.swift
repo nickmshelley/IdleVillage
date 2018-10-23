@@ -31,6 +31,6 @@ final class AppCoordinator {
     }
     
     private func loadGameState() {
-        
+        GameState.shared = GameState.makeInitial()
     }
 }

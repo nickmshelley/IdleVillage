@@ -15,6 +15,23 @@ enum TerritoryType: String, Codable {
     case fishing
     case hunting
     case woodChopping
+    
+    var displayString: String {
+        switch self {
+        case .empty:
+            return "Build"
+        case .house:
+            return "House"
+        case .farming:
+            return "Farm"
+        case .fishing:
+            return "Fishing Hole"
+        case .hunting:
+            return "Hunting Grounds"
+        case .woodChopping:
+            return "Forest"
+        }
+    }
 }
 
 struct Territory: Codable {
