@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32033905217E83C6000712C7 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32033904217E83C6000712C7 /* Level.swift */; };
+		32033907217E8D00000712C7 /* Monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32033906217E8D00000712C7 /* Monster.swift */; };
 		326F4F3221727EBC00A6BA37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F3121727EBC00A6BA37 /* AppDelegate.swift */; };
 		326F4F3921727EBC00A6BA37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 326F4F3821727EBC00A6BA37 /* Assets.xcassets */; };
 		326F4F3C21727EBC00A6BA37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 326F4F3A21727EBC00A6BA37 /* LaunchScreen.storyboard */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32033904217E83C6000712C7 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		32033906217E8D00000712C7 /* Monster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
 		326F4F2E21727EBC00A6BA37 /* IdleVillage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IdleVillage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		326F4F3121727EBC00A6BA37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		326F4F3821727EBC00A6BA37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				362517802177E3D0004FCA49 /* GameState.swift */,
 				362517832177E42E004FCA49 /* Villager.swift */,
 				362517852177E4E0004FCA49 /* Territory.swift */,
+				32033904217E83C6000712C7 /* Level.swift */,
+				32033906217E8D00000712C7 /* Monster.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,9 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32033907217E8D00000712C7 /* Monster.swift in Sources */,
 				326F4F602172807800A6BA37 /* AppCoordinator.swift in Sources */,
 				362517842177E42E004FCA49 /* Villager.swift in Sources */,
 				326F4F3221727EBC00A6BA37 /* AppDelegate.swift in Sources */,
+				32033905217E83C6000712C7 /* Level.swift in Sources */,
 				3625177D2177A205004FCA49 /* TerritoryCell.swift in Sources */,
 				362517812177E3D0004FCA49 /* GameState.swift in Sources */,
 				326F4F622172811900A6BA37 /* TerritoryViewController.swift in Sources */,

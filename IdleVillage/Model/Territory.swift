@@ -9,8 +9,12 @@
 import Foundation
 
 enum TerritoryType: String, Codable {
+    case empty
     case house
     case farming
+    case fishing
+    case hunting
+    case woodChopping
 }
 
 struct Territory: Codable {

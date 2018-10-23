@@ -9,5 +9,6 @@
 import Foundation
 
 struct Villager: Codable {
-    
+    let name: String
+    var levels: [Level]
 }

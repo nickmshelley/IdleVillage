@@ -16,6 +16,8 @@ final class AppCoordinator {
     }
     
     func start() {
+        loadGameState()
+        
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 120, height: 120)
         let space: CGFloat = 12
@@ -26,5 +28,9 @@ final class AppCoordinator {
         
         rootViewController.viewControllers = [territoryViewController]
         rootViewController.selectedViewController = territoryViewController
+    }
+    
+    private func loadGameState() {
+        
     }
 }
