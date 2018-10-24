@@ -26,7 +26,10 @@ final class AppCoordinator {
         let territoryViewController = TerritoryViewController(collectionViewLayout: flowLayout)
         territoryViewController.tabBarItem = UITabBarItem(title: "Territory", image: nil, tag: 0)
         
-        rootViewController.viewControllers = [territoryViewController]
+        let villagersController = VillagersTableViewController()
+        villagersController.tabBarItem = UITabBarItem(title: "Villagers", image: nil, tag: 0)
+        
+        rootViewController.viewControllers = [territoryViewController, villagersController]
         rootViewController.selectedViewController = territoryViewController
     }
     

@@ -21,6 +21,7 @@
 		362517812177E3D0004FCA49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517802177E3D0004FCA49 /* GameState.swift */; };
 		362517842177E42E004FCA49 /* Villager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517832177E42E004FCA49 /* Villager.swift */; };
 		362517862177E4E0004FCA49 /* Territory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517852177E4E0004FCA49 /* Territory.swift */; };
+		36E55BE82181137A004D9B86 /* VillagersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		362517802177E3D0004FCA49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		362517832177E42E004FCA49 /* Villager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Villager.swift; sourceTree = "<group>"; };
 		362517852177E4E0004FCA49 /* Territory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Territory.swift; sourceTree = "<group>"; };
+		36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				326F4F3121727EBC00A6BA37 /* AppDelegate.swift */,
 				326F4F5F2172807800A6BA37 /* AppCoordinator.swift */,
 				326F4F612172811900A6BA37 /* TerritoryViewController.swift */,
+				36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */,
 				3625177C2177A205004FCA49 /* TerritoryCell.swift */,
 				3625177E2177A758004FCA49 /* UIView+Layout.swift */,
 				362517822177E41B004FCA49 /* Model */,
@@ -294,6 +297,7 @@
 				326F4F622172811900A6BA37 /* TerritoryViewController.swift in Sources */,
 				362517862177E4E0004FCA49 /* Territory.swift in Sources */,
 				3625177F2177A758004FCA49 /* UIView+Layout.swift in Sources */,
+				36E55BE82181137A004D9B86 /* VillagersTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
