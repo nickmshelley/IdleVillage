@@ -19,7 +19,7 @@ private struct Section {
     let items: [String]
 }
 
-class TerritoryViewController: UICollectionViewController {
+class TerritoriesViewController: UICollectionViewController {
     private var sections = [Section]()
     
     override func viewDidLoad() {
