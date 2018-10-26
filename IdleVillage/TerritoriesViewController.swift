@@ -21,6 +21,8 @@ private struct Section {
 
 class TerritoriesViewController: UICollectionViewController {
     private var sections = [Section]()
+    private var territories = [Territory]()
+    private var monsters = [Monster]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,9 @@ class TerritoriesViewController: UICollectionViewController {
         title = "Territory"
         collectionView.register(TerritoryCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = .gray
+        
+        territories = GameState.shared.territories
+        self.monsters = GameState.shared.monsters
         
         let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.currentOccupancy) of \($0.maxOccupancy))" }
         let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
@@ -51,5 +56,14 @@ class TerritoriesViewController: UICollectionViewController {
         cell.backgroundColor = .white
         cell.configure(with: sections[indexPath.section].items[indexPath.row])
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch sections[indexPath.section].type {
+        case .owned:
+            navigationController?.pushViewController(OwnedTerritoryViewController(territory: territories[indexPath.item]), animated: true)
+        case .monster:
+            break
+        }
     }
 }
