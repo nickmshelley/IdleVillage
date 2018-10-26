@@ -9,5 +9,11 @@
 import Foundation
 
 struct Monster: Codable {
-    let health: Int
+    let currentHealth: Int
+    let maxHealth: Int
+    
+    init(health: Int) {
+        currentHealth = health
+        maxHealth = health
+    }
 }

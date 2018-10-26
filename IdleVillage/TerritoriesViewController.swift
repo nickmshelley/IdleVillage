@@ -37,7 +37,7 @@ class TerritoriesViewController: UICollectionViewController {
         let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.currentOccupancy) of \($0.maxOccupancy))" }
         let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
         
-        let monsters = GameState.shared.monsters.map { "Monster\n(\($0.health))" }
+        let monsters = GameState.shared.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }
         let monsterSection = Section(title: "Monster Territories", type: .monster, items: monsters)
         
         sections = [ownedSection, monsterSection]
@@ -63,7 +63,7 @@ class TerritoriesViewController: UICollectionViewController {
         case .owned:
             navigationController?.pushViewController(OwnedTerritoryViewController(territory: territories[indexPath.item]), animated: true)
         case .monster:
-            break
+            navigationController?.pushViewController(MonsterTerritoryViewController(monster: monsters[indexPath.item]), animated: true)
         }
     }
 }

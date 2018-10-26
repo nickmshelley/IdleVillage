@@ -1,20 +1,20 @@
 //
-//  OwnedTerritoryViewController.swift
+//  MonsterTerritoryViewController.swift
 //  IdleVillage
 //
-//  Created by Nick Shelley on 10/25/18.
+//  Created by Nick Shelley on 10/26/18.
 //  Copyright © 2018 Mine. All rights reserved.
 //
 
 import UIKit
 
-class OwnedTerritoryViewController: UIViewController {
-    let territory: Territory
+class MonsterTerritoryViewController: UIViewController {
+    let monster: Monster
     let titleLabel = UILabel(frame: .zero)
-    let occupancyLabel = UILabel(frame: .zero)
+    let healthLabel = UILabel(frame: .zero)
     
-    init(territory: Territory) {
-        self.territory = territory
+    init(monster: Monster) {
+        self.monster = monster
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,10 +27,10 @@ class OwnedTerritoryViewController: UIViewController {
         
         titleLabel.font = UIFont.systemFont(ofSize: 25)
         titleLabel.textAlignment = .center
-        titleLabel.text = territory.type.displayString
-        occupancyLabel.textAlignment = .center
-        occupancyLabel.text = "\(territory.currentOccupancy) of \(territory.maxOccupancy) villagers assigned"
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, occupancyLabel])
+        titleLabel.text = "Monster"
+        healthLabel.textAlignment = .center
+        healthLabel.text = "Health: \(monster.currentHealth) of \(monster.maxHealth)"
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, healthLabel])
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .equalSpacing
