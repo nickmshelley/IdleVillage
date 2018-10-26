@@ -23,6 +23,7 @@
 		362517862177E4E0004FCA49 /* Territory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362517852177E4E0004FCA49 /* Territory.swift */; };
 		36A1AE3F218254EC008DF0B4 /* OwnedTerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1AE3E218254EC008DF0B4 /* OwnedTerritoryViewController.swift */; };
 		36A1AE412183BE54008DF0B4 /* MonsterTerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1AE402183BE54008DF0B4 /* MonsterTerritoryViewController.swift */; };
+		36A1AE432183C599008DF0B4 /* VillagerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1AE422183C599008DF0B4 /* VillagerDetailViewController.swift */; };
 		36E55BE82181137A004D9B86 /* VillagersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		362517852177E4E0004FCA49 /* Territory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Territory.swift; sourceTree = "<group>"; };
 		36A1AE3E218254EC008DF0B4 /* OwnedTerritoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnedTerritoryViewController.swift; sourceTree = "<group>"; };
 		36A1AE402183BE54008DF0B4 /* MonsterTerritoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsterTerritoryViewController.swift; sourceTree = "<group>"; };
+		36A1AE422183C599008DF0B4 /* VillagerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagerDetailViewController.swift; sourceTree = "<group>"; };
 		36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				36A1AE3E218254EC008DF0B4 /* OwnedTerritoryViewController.swift */,
 				36A1AE402183BE54008DF0B4 /* MonsterTerritoryViewController.swift */,
 				36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */,
+				36A1AE422183C599008DF0B4 /* VillagerDetailViewController.swift */,
 				3625177C2177A205004FCA49 /* TerritoryCell.swift */,
 				3625177E2177A758004FCA49 /* UIView+Layout.swift */,
 				362517822177E41B004FCA49 /* Model */,
@@ -306,6 +309,7 @@
 				362517862177E4E0004FCA49 /* Territory.swift in Sources */,
 				3625177F2177A758004FCA49 /* UIView+Layout.swift in Sources */,
 				36E55BE82181137A004D9B86 /* VillagersTableViewController.swift in Sources */,
+				36A1AE432183C599008DF0B4 /* VillagerDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

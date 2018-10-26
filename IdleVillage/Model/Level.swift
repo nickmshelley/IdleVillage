@@ -8,11 +8,24 @@
 
 import Foundation
 
-enum LevelType: String, Codable {
+enum LevelType: String, Codable, CaseIterable {
     case farming
     case fishing
     case hunting
     case fighting
+    
+    var displayString: String {
+        switch self {
+        case .farming:
+            return "Farming"
+        case .fishing:
+            return "Fishing"
+        case .hunting:
+            return "Hunting"
+        case .fighting:
+            return "Fighting"
+        }
+    }
 }
 
 struct Level: Codable {

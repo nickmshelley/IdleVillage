@@ -32,4 +32,8 @@ class VillagersTableViewController: UITableViewController {
         cell.textLabel?.text = villagers[indexPath.row].name
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(VillagerDetailViewController(villager: villagers[indexPath.row]), animated: true)
+    }
 }
