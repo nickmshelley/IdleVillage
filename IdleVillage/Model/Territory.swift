@@ -36,6 +36,6 @@ enum TerritoryType: String, Codable {
 
 struct Territory: Codable {
     let type: TerritoryType
-    var currentOccupancy: Int
     var maxOccupancy: Int
+    var assignedVillagers: [String]
 }

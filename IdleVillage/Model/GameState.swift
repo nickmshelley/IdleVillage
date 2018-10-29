@@ -23,11 +23,11 @@ struct GameState: Codable {
     static func makeInitial() -> GameState {
         let villagers = [Villager(name: "Bob", levels: [:])]
         
-        let house = Territory(type: .house, currentOccupancy: 1, maxOccupancy: 1)
-        let farming = Territory(type: .farming, currentOccupancy: 0, maxOccupancy: 1)
-        let fishing = Territory(type: .fishing, currentOccupancy: 0, maxOccupancy: 1)
-        let hunting = Territory(type: .hunting, currentOccupancy: 0, maxOccupancy: 1)
-        let wood = Territory(type: .woodChopping, currentOccupancy: 0, maxOccupancy: 1)
+        let house = Territory(type: .house, maxOccupancy: 1, assignedVillagers: ["Bob"])
+        let farming = Territory(type: .farming, maxOccupancy: 1, assignedVillagers: [])
+        let fishing = Territory(type: .fishing, maxOccupancy: 1, assignedVillagers: [])
+        let hunting = Territory(type: .hunting, maxOccupancy: 1, assignedVillagers: [])
+        let wood = Territory(type: .woodChopping, maxOccupancy: 1, assignedVillagers: [])
         let territories = [house, farming, fishing, hunting, wood]
         
         let monsters = (0...10).map { Monster(health: Int(10 * pow(2, Double($0)))) }

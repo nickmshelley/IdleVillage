@@ -34,7 +34,7 @@ class TerritoriesViewController: UICollectionViewController {
         territories = GameState.shared.territories
         self.monsters = GameState.shared.monsters
         
-        let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.currentOccupancy) of \($0.maxOccupancy))" }
+        let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.assignedVillagers.count) of \($0.maxOccupancy))" }
         let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
         
         let monsters = GameState.shared.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }

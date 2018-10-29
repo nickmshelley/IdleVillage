@@ -12,6 +12,7 @@ class OwnedTerritoryViewController: UIViewController {
     let territory: Territory
     let titleLabel = UILabel(frame: .zero)
     let occupancyLabel = UILabel(frame: .zero)
+    let assignedLabel = UILabel(frame: .zero)
     
     init(territory: Territory) {
         self.territory = territory
@@ -29,8 +30,11 @@ class OwnedTerritoryViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.text = territory.type.displayString
         occupancyLabel.textAlignment = .center
-        occupancyLabel.text = "\(territory.currentOccupancy) of \(territory.maxOccupancy) villagers assigned"
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, occupancyLabel])
+        occupancyLabel.text = "\(territory.assignedVillagers.count) of \(territory.maxOccupancy) villagers assigned"
+        assignedLabel.textAlignment = .center
+        assignedLabel.text = territory.assignedVillagers.joined(separator: ", ")
+        assignedLabel.isHidden = territory.assignedVillagers.isEmpty
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, occupancyLabel, assignedLabel])
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .equalSpacing

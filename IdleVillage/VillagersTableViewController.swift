@@ -10,6 +10,16 @@ import UIKit
 
 class VillagersTableViewController: UITableViewController {
     var villagers = [Villager]()
+    let selectionHandler: ((String) -> Void)?
+    
+    init(selectionHandler: ((String) -> Void)? = nil) {
+        self.selectionHandler = selectionHandler
+        super.init(style: .plain)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +44,10 @@ class VillagersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(VillagerDetailViewController(villager: villagers[indexPath.row]), animated: true)
+        if let selectionHandler = selectionHandler {
+            selectionHandler(villagers[indexPath.row].name)
+        } else {
+            navigationController?.pushViewController(VillagerDetailViewController(villager: villagers[indexPath.row]), animated: true)
+        }
     }
 }
