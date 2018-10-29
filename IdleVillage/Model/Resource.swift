@@ -11,6 +11,15 @@ import Foundation
 enum ResourceType: String, Codable, CaseIterable {
     case wood
     case stone
+    
+    var displayString: String {
+        switch self {
+        case .wood:
+            return "Wood"
+        case .stone:
+            return "Stone"
+        }
+    }
 }
 
 struct Resource: Codable {

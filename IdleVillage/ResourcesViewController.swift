@@ -24,12 +24,10 @@ class ResourcesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Territory"
-        
         addChild(child)
         
         view.backgroundColor = .white
-        label.text = "Resources yo"
+        label.text = resourcesString()
         label.numberOfLines = 0
         view.addSubview(label)
         view.addSubview(child.view)
@@ -46,5 +44,17 @@ class ResourcesViewController: UIViewController {
         child.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
 
         child.didMove(toParent: self)
+        
+        title = child.title
+    }
+    
+    private func resourcesString() -> String {
+        let resources = GameState.shared.resources
+        let strings: [String] = ResourceType.allCases.map { type in
+            let amount = resources[type]?.amount ?? 0
+            return "\(type.displayString): \(amount)"
+        }
+        
+        return strings.joined(separator: "   ")
     }
 }
