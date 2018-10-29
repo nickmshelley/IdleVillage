@@ -11,6 +11,7 @@ import Foundation
 struct GameState: Codable {
     static var shared: GameState!
     
+    var resources: [Resource]
     var villagers: [Villager]
     var territories: [Territory]
     var monsters: [Monster]
@@ -31,6 +32,6 @@ struct GameState: Codable {
         
         let monsters = (0...10).map { Monster(health: Int(10 * pow(2, Double($0)))) }
         
-        return GameState(villagers: villagers, territories: territories, monsters: monsters)
+        return GameState(resources: [], villagers: villagers, territories: territories, monsters: monsters)
     }
 }
