@@ -23,11 +23,12 @@ final class AppCoordinator {
         let space: CGFloat = 12
         flowLayout.minimumInteritemSpacing = space
         flowLayout.sectionInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
-        let resources = ResourcesViewController(child: TerritoriesViewController(collectionViewLayout: flowLayout))
-        let territoryViewController = UINavigationController(rootViewController: resources)
+        let territoryResources = ResourcesViewController(child: TerritoriesViewController(collectionViewLayout: flowLayout))
+        let territoryViewController = UINavigationController(rootViewController: territoryResources)
         territoryViewController.tabBarItem = UITabBarItem(title: "Territory", image: nil, tag: 0)
         
-        let villagersController = UINavigationController(rootViewController: VillagersTableViewController())
+        let villagerResources = ResourcesViewController(child: VillagersTableViewController())
+        let villagersController = UINavigationController(rootViewController: villagerResources)
         villagersController.tabBarItem = UITabBarItem(title: "Villagers", image: nil, tag: 0)
         
         rootViewController.viewControllers = [territoryViewController, villagersController]
