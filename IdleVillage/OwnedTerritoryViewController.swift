@@ -13,6 +13,7 @@ class OwnedTerritoryViewController: UIViewController {
     let titleLabel = UILabel(frame: .zero)
     let occupancyLabel = UILabel(frame: .zero)
     let assignedLabel = UILabel(frame: .zero)
+    let assignButton = UIButton(type: .system)
     
     init(territory: Territory) {
         self.territory = territory
@@ -34,7 +35,9 @@ class OwnedTerritoryViewController: UIViewController {
         assignedLabel.textAlignment = .center
         assignedLabel.text = territory.assignedVillagers.joined(separator: ", ")
         assignedLabel.isHidden = territory.assignedVillagers.isEmpty
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, occupancyLabel, assignedLabel])
+        assignButton.setTitle("Assign", for: .normal)
+        assignButton.addTarget(self, action: #selector(assignTapped), for: .touchUpInside)
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, occupancyLabel, assignedLabel, assignButton])
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .equalSpacing
@@ -46,5 +49,13 @@ class OwnedTerritoryViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16).isActive = true
+    }
+    
+    @objc func assignTapped() {
+        let vc = VillagersTableViewController { villagerName in
+            print(villagerName)
+            self.navigationController?.popViewController(animated: true)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
