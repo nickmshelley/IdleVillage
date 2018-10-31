@@ -31,16 +31,9 @@ class TerritoriesViewController: UICollectionViewController {
         collectionView.register(TerritoryCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = .gray
         
-        territories = GameState.shared.territories
-        self.monsters = GameState.shared.monsters
+        update()
         
-        let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.assignedVillagers.count) of \($0.maxOccupancy))" }
-        let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
-        
-        let monsters = GameState.shared.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }
-        let monsterSection = Section(title: "Monster Territories", type: .monster, items: monsters)
-        
-        sections = [ownedSection, monsterSection]
+        NotificationCenter.default.addObserver(self, selector: #selector(update), name: OwnedTerritoryViewController.villagersAssignedNotification, object: nil)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -65,5 +58,20 @@ class TerritoriesViewController: UICollectionViewController {
         case .monster:
             navigationController?.pushViewController(MonsterTerritoryViewController(monster: monsters[indexPath.item]), animated: true)
         }
+    }
+    
+    @objc func update() {
+        territories = GameState.shared.territories
+        self.monsters = GameState.shared.monsters
+        
+        let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.assignedVillagers.count) of \($0.maxOccupancy))" }
+        let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
+        
+        let monsters = GameState.shared.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }
+        let monsterSection = Section(title: "Monster Territories", type: .monster, items: monsters)
+        
+        sections = [ownedSection, monsterSection]
+        
+        collectionView.reloadData()
     }
 }
