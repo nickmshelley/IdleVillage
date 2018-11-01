@@ -11,9 +11,11 @@ import Foundation
 struct Monster: Codable {
     let currentHealth: Int
     let maxHealth: Int
+    var assignedVillagers: [String]
     
     init(health: Int) {
         currentHealth = health
         maxHealth = health
+        assignedVillagers = []
     }
 }

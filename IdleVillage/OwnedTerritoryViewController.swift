@@ -9,8 +9,6 @@
 import UIKit
 
 class OwnedTerritoryViewController: UIViewController {
-    static let villagersAssignedNotification = NSNotification.Name("VillagerAssigned")
-    
     var territory: Territory
     let titleLabel = UILabel(frame: .zero)
     let occupancyLabel = UILabel(frame: .zero)
@@ -60,27 +58,12 @@ class OwnedTerritoryViewController: UIViewController {
     @objc func assignTapped() {
         let vc = VillagersTableViewController { villagerName in
             defer { self.navigationController?.popViewController(animated: true) }
-            guard !self.territory.assignedVillagers.contains(villagerName) else { return }
+            guard !self.territory.assignedVillagers.contains(villagerName), let updated = GameState.assignVillager(villagerName, to: self.territory) else { return }
             
-            if let index = GameState.shared.territories.firstIndex(where: { $0.assignedVillagers.contains(villagerName) && $0.type != .house }) {
-                var updated = GameState.shared.territories[index]
-                updated.assignedVillagers.remove(at: updated.assignedVillagers.firstIndex(where: { $0 == villagerName })!)
-                GameState.shared.territories[index] = updated
-            }
-            
-            if let index = GameState.shared.territories.firstIndex(where: { $0.type == self.territory.type }) {
-                var updated = GameState.shared.territories[index]
-                updated.assignedVillagers.append(villagerName)
-                if updated.assignedVillagers.count > updated.maxOccupancy {
-                    updated.assignedVillagers.removeFirst()
-                }
-                GameState.shared.territories[index] = updated
-                self.territory = updated
-                self.updateText()
-            }
-            
-            NotificationCenter.default.post(name: OwnedTerritoryViewController.villagersAssignedNotification, object: nil)
+            self.territory = updated
+            self.updateText()
         }
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }
