@@ -33,6 +33,8 @@ final class AppCoordinator {
         
         rootViewController.viewControllers = [territoryViewController, villagersController]
         rootViewController.selectedViewController = territoryViewController
+        
+        GameEngine.shared.run()
     }
     
     private func loadGameState() {

@@ -9,11 +9,14 @@
 import Foundation
 
 enum ResourceType: String, Codable, CaseIterable {
+    case food
     case wood
     case stone
     
     var displayString: String {
         switch self {
+        case .food:
+            return "Food"
         case .wood:
             return "Wood"
         case .stone:

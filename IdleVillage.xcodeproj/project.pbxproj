@@ -24,6 +24,7 @@
 		36A1AE3F218254EC008DF0B4 /* OwnedTerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1AE3E218254EC008DF0B4 /* OwnedTerritoryViewController.swift */; };
 		36A1AE412183BE54008DF0B4 /* MonsterTerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1AE402183BE54008DF0B4 /* MonsterTerritoryViewController.swift */; };
 		36A1AE432183C599008DF0B4 /* VillagerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1AE422183C599008DF0B4 /* VillagerDetailViewController.swift */; };
+		36B368522192108C0076B450 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B368512192108C0076B450 /* GameEngine.swift */; };
 		36C0277B2187708800E9FA3E /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0277A2187708800E9FA3E /* Resource.swift */; };
 		36C0277D2187763300E9FA3E /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0277C2187763300E9FA3E /* ResourcesViewController.swift */; };
 		36E55BE82181137A004D9B86 /* VillagersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */; };
@@ -70,6 +71,7 @@
 		36A1AE3E218254EC008DF0B4 /* OwnedTerritoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnedTerritoryViewController.swift; sourceTree = "<group>"; };
 		36A1AE402183BE54008DF0B4 /* MonsterTerritoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsterTerritoryViewController.swift; sourceTree = "<group>"; };
 		36A1AE422183C599008DF0B4 /* VillagerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagerDetailViewController.swift; sourceTree = "<group>"; };
+		36B368512192108C0076B450 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		36C0277A2187708800E9FA3E /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		36C0277C2187763300E9FA3E /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
 		36E55BE72181137A004D9B86 /* VillagersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagersTableViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				36A1AE422183C599008DF0B4 /* VillagerDetailViewController.swift */,
 				3625177C2177A205004FCA49 /* TerritoryCell.swift */,
 				3625177E2177A758004FCA49 /* UIView+Layout.swift */,
+				36B368512192108C0076B450 /* GameEngine.swift */,
 				362517822177E41B004FCA49 /* Model */,
 				326F4F3821727EBC00A6BA37 /* Assets.xcassets */,
 				326F4F3A21727EBC00A6BA37 /* LaunchScreen.storyboard */,
@@ -303,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36A1AE412183BE54008DF0B4 /* MonsterTerritoryViewController.swift in Sources */,
+				36B368522192108C0076B450 /* GameEngine.swift in Sources */,
 				32033907217E8D00000712C7 /* Monster.swift in Sources */,
 				36C0277D2187763300E9FA3E /* ResourcesViewController.swift in Sources */,
 				36A1AE3F218254EC008DF0B4 /* OwnedTerritoryViewController.swift in Sources */,

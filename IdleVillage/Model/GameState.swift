@@ -11,7 +11,7 @@ import Foundation
 struct GameState: Codable {
     static var shared: GameState!
     
-    static let villagersAssignedNotification = NSNotification.Name("VillagerAssigned")
+    static let villagersAssignedNotification = Notification.Name("VillagerAssigned")
     
     var resources: [ResourceType: Resource]
     var villagers: [Villager]

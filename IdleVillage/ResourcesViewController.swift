@@ -46,6 +46,12 @@ class ResourcesViewController: UIViewController {
         child.didMove(toParent: self)
         
         title = child.title
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(update), name: GameEngine.gameUpdatedNotification, object: nil)
+    }
+    
+    @objc func update() {
+        label.text = resourcesString()
     }
     
     private func resourcesString() -> String {
