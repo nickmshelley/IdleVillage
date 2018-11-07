@@ -20,6 +20,8 @@ struct GameEngine {
     func updateState() {
         let gameState = GameState.shared!
         
+        let existingFood = gameState.resources[.food]?.amount ?? 0
+        var newFood = existingFood
         for territory in gameState.territories {
             guard !territory.assignedVillagers.isEmpty else { continue }
             
@@ -33,15 +35,17 @@ struct GameEngine {
             case .fishing:
                 fallthrough
             case .hunting:
-                var food = gameState.resources[.food, default: Resource(type: .food, amount: 0)]
-                food.amount += territory.assignedVillagers.count
-                GameState.shared.resources[.food] = food
+                newFood += territory.assignedVillagers.count
             case .woodChopping:
+                let amount = min(newFood, territory.assignedVillagers.count)
                 var wood = gameState.resources[.wood, default: Resource(type: .wood, amount: 0)]
-                wood.amount += territory.assignedVillagers.count
+                wood.amount += amount
                 GameState.shared.resources[.wood] = wood
+                newFood -= amount
             }
         }
+        
+        GameState.shared.resources[.food] = Resource(type: .food, amount: newFood)
         
         NotificationCenter.default.post(name: GameEngine.gameUpdatedNotification, object: nil)
         run()
