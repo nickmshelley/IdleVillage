@@ -12,6 +12,7 @@ enum LevelType: String, Codable, CaseIterable {
     case farming
     case fishing
     case hunting
+    case woodChopping
     case fighting
     
     var displayString: String {
@@ -22,6 +23,8 @@ enum LevelType: String, Codable, CaseIterable {
             return "Fishing"
         case .hunting:
             return "Hunting"
+        case .woodChopping:
+            return "Foresting"
         case .fighting:
             return "Fighting"
         }
@@ -34,4 +37,8 @@ struct Level: Codable {
     var maxLevel: Int
     var currentExperience: Double
     var maxExperience: Double
+    
+    static func initialLevel(of type: LevelType) -> Level {
+        return Level(type: type, currentLevel: 0, maxLevel: 5, currentExperience: 0, maxExperience: 10)
+    }
 }

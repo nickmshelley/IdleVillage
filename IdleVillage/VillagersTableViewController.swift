@@ -27,6 +27,8 @@ class VillagersTableViewController: UITableViewController {
         title = "Villagers"
         villagers = GameState.shared.villagers
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(gameUpdated), name: GameEngine.gameUpdatedNotification, object: nil)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,5 +51,10 @@ class VillagersTableViewController: UITableViewController {
         } else {
             navigationController?.pushViewController(VillagerDetailViewController(villager: villagers[indexPath.row]), animated: true)
         }
+    }
+    
+    @objc func gameUpdated() {
+        villagers = GameState.shared.villagers
+        tableView.reloadData()
     }
 }

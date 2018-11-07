@@ -9,7 +9,9 @@
 import UIKit
 
 class VillagerDetailViewController: UIViewController {
-    let villager: Villager
+    var villager: Villager
+    let stackView = UIStackView(frame: .zero)
+    let nameLabel = UILabel(frame: .zero)
     
     init(villager: Villager) {
         self.villager = villager
@@ -23,24 +25,10 @@ class VillagerDetailViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         
-        let nameLabel = UILabel(frame: .zero)
-        
         nameLabel.font = UIFont.systemFont(ofSize: 25)
         nameLabel.textAlignment = .center
         nameLabel.text = villager.name
-        let labels: [UILabel] = LevelType.allCases.map { type in
-            let level = villager.levels[type]
-            let label = UILabel(frame: .zero)
-            label.numberOfLines = 0
-            let currentLevel = level?.currentLevel ?? 0
-            let maxLevel = level?.maxLevel ?? 5
-            let currentExperience = Int(level?.currentExperience ?? 0)
-            let maxExperience = Int(level?.maxExperience ?? 10)
-            let text = "\(type.displayString): \n\tLevel \(currentLevel) of \(maxLevel)\n\tExperience \(currentExperience) of \(maxExperience)"
-            label.text = text
-            return label
-        }
-        let stackView = UIStackView(arrangedSubviews: [nameLabel] + labels)
+        updateText()
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .equalSpacing
@@ -52,5 +40,31 @@ class VillagerDetailViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16).isActive = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(gameUpdated), name: GameEngine.gameUpdatedNotification, object: nil)
+    }
+    
+    private func updateText() {
+        stackView.arrangedSubviews.forEach { view in
+            stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+        
+        stackView.addArrangedSubview(nameLabel)
+        LevelType.allCases.forEach { type in
+            let level = villager.levels[type] ?? Level.initialLevel(of: type)
+            let label = UILabel(frame: .zero)
+            label.numberOfLines = 0
+            let text = "\(type.displayString): \n\tLevel \(level.currentLevel) of \(level.maxLevel)\n\tExperience \(level.currentExperience) of \(level.maxExperience)"
+            label.text = text
+            stackView.addArrangedSubview(label)
+        }
+    }
+    
+    @objc func gameUpdated() {
+        guard let villager = GameState.shared.villagers.first(where: { $0.name == villager.name }) else { return }
+        
+        self.villager = villager
+        updateText()
     }
 }
