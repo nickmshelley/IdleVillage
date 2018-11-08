@@ -11,4 +11,20 @@ import Foundation
 struct Villager: Codable {
     let name: String
     var levels: [LevelType: Level]
+    
+    mutating func levelUp(type: LevelType) {
+        var level = levels[type] ?? Level.initialLevel(of: type)
+        if level.currentLevel == level.maxLevel {
+            level.currentLevel = 1
+            level.maxLevel += 5
+            level.maxExperience = 10
+        } else {
+            level.currentLevel += 1
+            level.maxExperience += 10
+        }
+        
+        level.currentExperience = 0
+        
+        levels[type] = level
+    }
 }

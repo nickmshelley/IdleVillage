@@ -39,6 +39,6 @@ struct Level: Codable {
     var maxExperience: Double
     
     static func initialLevel(of type: LevelType) -> Level {
-        return Level(type: type, currentLevel: 0, maxLevel: 5, currentExperience: 0, maxExperience: 10)
+        return Level(type: type, currentLevel: 1, maxLevel: 5, currentExperience: 0, maxExperience: 10)
     }
 }
