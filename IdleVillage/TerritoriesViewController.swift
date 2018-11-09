@@ -63,12 +63,12 @@ class TerritoriesViewController: UICollectionViewController {
     
     @objc func update() {
         territories = GameState.shared.territories
-        self.monsters = GameState.shared.monsters
+        self.monsters = GameState.shared.monsters.filter { $0.currentHealth > 0 }
         
-        let owned = GameState.shared.territories.map { $0.type.displayString + "\n(\($0.assignedVillagers.count) of \($0.maxOccupancy))" }
+        let owned = territories.map { $0.type.displayString + "\n(\($0.assignedVillagers.count) of \($0.maxOccupancy))" }
         let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
         
-        let monsters = GameState.shared.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }
+        let monsters = self.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }
         let monsterSection = Section(title: "Monster Territories", type: .monster, items: monsters)
         
         sections = [ownedSection, monsterSection]
