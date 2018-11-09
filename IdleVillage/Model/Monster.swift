@@ -9,7 +9,7 @@
 import Foundation
 
 struct Monster: Codable {
-    let currentHealth: Int
+    var currentHealth: Int
     let maxHealth: Int
     var assignedVillagers: [String]
     

@@ -18,15 +18,17 @@ struct GameEngine {
     }
     
     private func updateState(gameState: GameState = GameState.shared!) {
-        updateResources(gameState: gameState)
-        updateExperience()
+        var updatedState = gameState
+        updatedState = updateResources(gameState: updatedState)
+        updatedState = updateMonsters(gameState: updatedState)
+        GameState.shared = updatedState
         NotificationCenter.default.post(name: GameEngine.gameUpdatedNotification, object: nil)
         run()
     }
     
-    private func updateResources(gameState: GameState) {
-        let existingFood = gameState.resources[.food]?.amount ?? 0
-        var newFood = existingFood
+    private func updateResources(gameState: GameState) -> GameState {
+        var updatedState = gameState
+        
         for territory in gameState.territories {
             guard !territory.assignedVillagers.isEmpty else { continue }
             
@@ -36,53 +38,55 @@ struct GameEngine {
             case .house:
                 break
             case .farming:
-                fallthrough
+                updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
+                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .fishing:
-                fallthrough
+                updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
+                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .fishing, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .hunting:
-                newFood += territory.assignedVillagers.count
+                updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
+                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .hunting, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .woodChopping:
-                let amount = min(newFood, territory.assignedVillagers.count)
-                var wood = gameState.resources[.wood, default: Resource(type: .wood, amount: 0)]
-                wood.amount += amount
-                GameState.shared.resources[.wood] = wood
-                newFood -= amount
+                let amount = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
+                updatedState.addResource(type: .wood, amount: amount)
+                updatedState.addResource(type: .food, amount: -amount)
+                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: amount)
             }
         }
         
-        GameState.shared.resources[.food] = Resource(type: .food, amount: newFood)
+        return updatedState
     }
     
-    private func updateExperience() {
-        for territory in GameState.shared.territories {
-            guard !territory.assignedVillagers.isEmpty else { continue }
+    private func updateMonsters(gameState: GameState) -> GameState {
+        var updatedState = gameState
+        
+        for (index, var monster) in gameState.monsters.enumerated() {
+            guard !monster.assignedVillagers.isEmpty, monster.currentHealth > 0 else { continue }
             
-            let optionalLevelType: LevelType?
-            switch territory.type {
-            case .empty:
-                optionalLevelType = nil
-            case .house:
-                optionalLevelType = nil
-            case .farming:
-                optionalLevelType = .farming
-            case .fishing:
-                optionalLevelType = .fishing
-            case .hunting:
-                optionalLevelType = .hunting
-            case .woodChopping:
-                optionalLevelType = .woodChopping
-            }
+            let amount = min(updatedState.currentResourceAmount(of: .food), monster.assignedVillagers.count)
             
-            guard let levelType = optionalLevelType else { continue }
+            monster.currentHealth = max(monster.currentHealth - amount, 0)
+            updatedState.monsters[index] = monster
             
-            for villagerName in territory.assignedVillagers {
-                let index = GameState.shared.villagers.firstIndex { $0.name == villagerName }!
-                var villager = GameState.shared.villagers[index]
-                var level = villager.levels[levelType] ?? Level.initialLevel(of: levelType)
-                level.currentExperience = min(level.currentExperience + 1, level.maxExperience)
-                villager.levels[levelType] = level
-                GameState.shared.villagers[index] = villager
-            }
+            updatedState = updateExperience(for: monster.assignedVillagers, levelType: .fighting, gameState: updatedState, amount: amount)
+            updatedState.addResource(type: .food, amount: -amount)
         }
+        
+        return updatedState
+    }
+    
+    private func updateExperience(for villagerNames: [String], levelType: LevelType, gameState: GameState, amount: Int) -> GameState {
+        var updatedState = gameState
+        
+        for villagerName in villagerNames.prefix(amount) {
+            let index = updatedState.villagers.firstIndex { $0.name == villagerName }!
+            var villager = updatedState.villagers[index]
+            var level = villager.levels[levelType] ?? Level.initialLevel(of: levelType)
+            level.currentExperience = min(level.currentExperience + 1, level.maxExperience)
+            villager.levels[levelType] = level
+            updatedState.villagers[index] = villager
+        }
+        
+        return updatedState
     }
 }

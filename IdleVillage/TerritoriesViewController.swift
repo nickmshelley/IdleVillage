@@ -34,6 +34,7 @@ class TerritoriesViewController: UICollectionViewController {
         update()
         
         NotificationCenter.default.addObserver(self, selector: #selector(update), name: GameState.villagersAssignedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(update), name: GameEngine.gameUpdatedNotification, object: nil)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -31,7 +31,6 @@ class MonsterTerritoryViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.text = "Monster"
         healthLabel.textAlignment = .center
-        healthLabel.text = "Health: \(monster.currentHealth) of \(monster.maxHealth)"
         assignedLabel.textAlignment = .center
         assignedLabel.numberOfLines = 0
         updateText()
@@ -49,9 +48,17 @@ class MonsterTerritoryViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16).isActive = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(gameUpdated), name: GameEngine.gameUpdatedNotification, object: nil)
+    }
+    
+    @objc func gameUpdated() {
+        monster = GameState.shared.monsters.first { $0.maxHealth == self.monster.maxHealth }!
+        updateText()
     }
     
     func updateText() {
+        healthLabel.text = "Health: \(monster.currentHealth) of \(monster.maxHealth)"
         assignedLabel.text = "Assigned: " + monster.assignedVillagers.joined(separator: ", ")
         assignedLabel.isHidden = monster.assignedVillagers.isEmpty
     }

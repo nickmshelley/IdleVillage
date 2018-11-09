@@ -18,6 +18,14 @@ struct GameState: Codable {
     var territories: [Territory]
     var monsters: [Monster]
     
+    func currentResourceAmount(of type: ResourceType) -> Int {
+        return resources[type]?.amount ?? 0
+    }
+    
+    mutating func addResource(type: ResourceType, amount: Int) {
+        resources[type] = Resource(type: type, amount: currentResourceAmount(of: type) + amount)
+    }
+    
     static func filePath() -> String {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!.appendingPathComponent("UserData.sqlite").path
     }
