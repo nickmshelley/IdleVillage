@@ -10,8 +10,6 @@ import Foundation
 
 enum LevelType: String, Codable, CaseIterable {
     case farming
-    case fishing
-    case hunting
     case woodChopping
     case fighting
     
@@ -19,10 +17,6 @@ enum LevelType: String, Codable, CaseIterable {
         switch self {
         case .farming:
             return "Farming"
-        case .fishing:
-            return "Fishing"
-        case .hunting:
-            return "Hunting"
         case .woodChopping:
             return "Foresting"
         case .fighting:

@@ -12,8 +12,6 @@ enum TerritoryType: String, Codable {
     case empty
     case house
     case farming
-    case fishing
-    case hunting
     case woodChopping
     
     var displayString: String {
@@ -24,10 +22,6 @@ enum TerritoryType: String, Codable {
             return "House"
         case .farming:
             return "Farm"
-        case .fishing:
-            return "Fishing Hole"
-        case .hunting:
-            return "Hunting Grounds"
         case .woodChopping:
             return "Forest"
         }

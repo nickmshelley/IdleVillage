@@ -40,12 +40,6 @@ struct GameEngine {
             case .farming:
                 updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count)
-            case .fishing:
-                updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
-                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .fishing, gameState: updatedState, amount: territory.assignedVillagers.count)
-            case .hunting:
-                updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
-                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .hunting, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .woodChopping:
                 let amount = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
                 updatedState.addResource(type: .wood, amount: amount)
