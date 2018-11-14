@@ -34,9 +34,9 @@ struct GameState: Codable {
         let villagerNames = ["Adam", "Bob", "Carl", "Devin"]
         let villagers = villagerNames.map { Villager(name: $0, levels: [:]) }
         
-        let house = Territory(type: .house, maxOccupancy: 1, assignedVillagers: villagerNames)
-        let farming = Territory(type: .farming, maxOccupancy: 1, assignedVillagers: [])
-        let wood = Territory(type: .woodChopping, maxOccupancy: 1, assignedVillagers: [])
+        let house = Territory(type: .house, maxOccupancy: 4, assignedVillagers: villagerNames)
+        let farming = Territory(type: .farming, maxOccupancy: 4, assignedVillagers: [])
+        let wood = Territory(type: .woodChopping, maxOccupancy: 4, assignedVillagers: [])
         let territories = [house, farming, wood]
         
         let monsters = (0...10).map { Monster(health: Int(100 * pow(2, Double($0)))) }

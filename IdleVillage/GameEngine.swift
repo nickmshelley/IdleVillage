@@ -14,7 +14,7 @@ struct GameEngine {
     static let gameUpdatedNotification = Notification.Name(rawValue: "GameUpdatedNotification")
     
     func run() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { self.updateState() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { self.updateState() })
     }
     
     private func updateState(gameState: GameState = GameState.shared!) {
@@ -38,12 +38,13 @@ struct GameEngine {
             case .house:
                 break
             case .farming:
-                updatedState.addResource(type: .food, amount: territory.assignedVillagers.count)
+                updatedState.addResource(type: .food, amount: villagerPower(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count))
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .woodChopping:
-                let amount = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
+                let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
+                let amount = villagerPower(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: turns)
                 updatedState.addResource(type: .wood, amount: amount)
-                updatedState.addResource(type: .food, amount: -amount)
+                updatedState.addResource(type: .food, amount: -turns)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: amount)
             }
         }
@@ -87,5 +88,12 @@ struct GameEngine {
         }
         
         return updatedState
+    }
+    
+    private func villagerPower(for villagerNames: [String], levelType: LevelType, gameState: GameState, amount: Int) -> Int {
+        return villagerNames.map { name in
+            let villager = gameState.villagers.first { $0.name == name }!
+            return villager.levels[levelType]?.currentLevel ?? 1
+        }.reduce(0, +)
     }
 }
