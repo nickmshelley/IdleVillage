@@ -11,6 +11,7 @@ import Foundation
 enum LevelType: String, Codable, CaseIterable {
     case farming
     case woodChopping
+    case mining
     case fighting
     
     var displayString: String {
@@ -19,6 +20,8 @@ enum LevelType: String, Codable, CaseIterable {
             return "Farming"
         case .woodChopping:
             return "Foresting"
+        case .mining:
+            return "Mining"
         case .fighting:
             return "Fighting"
         }

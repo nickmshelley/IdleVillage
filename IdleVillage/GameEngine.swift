@@ -46,6 +46,12 @@ struct GameEngine {
                 updatedState.addResource(type: .wood, amount: amount)
                 updatedState.addResource(type: .food, amount: -turns)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: turns)
+            case .stone:
+                let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
+                let amount = villagerPower(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
+                updatedState.addResource(type: .stone, amount: amount)
+                updatedState.addResource(type: .food, amount: -turns)
+                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
             }
         }
         

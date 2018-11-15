@@ -55,7 +55,13 @@ class TerritoriesViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch sections[indexPath.section].type {
         case .owned:
-            navigationController?.pushViewController(OwnedTerritoryViewController(territory: territories[indexPath.item]), animated: true)
+            let territory = territories[indexPath.item]
+            switch territory.type {
+            case .empty:
+                navigationController?.pushViewController(BuildViewController(), animated: true)
+            default:
+                navigationController?.pushViewController(OwnedTerritoryViewController(territory: territory), animated: true)
+            }
         case .monster:
             navigationController?.pushViewController(MonsterTerritoryViewController(monster: monsters[indexPath.item]), animated: true)
         }
