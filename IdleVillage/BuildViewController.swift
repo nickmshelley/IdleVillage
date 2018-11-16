@@ -57,4 +57,21 @@ class BuildViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let territoryType = available[indexPath.row]
+        let gameState = GameState.shared!
+        
+        let hasEnoughResources = !territoryType.buildPrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
+        if hasEnoughResources {
+            territoryType.buildPrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
+            let index = GameState.shared.territories.firstIndex { $0.type == .empty }!
+            GameState.shared.territories[index] = Territory(type: territoryType, maxOccupancy: 1, assignedVillagers: [])
+            navigationController?.popViewController(animated: true)
+        } else {
+            let alert = UIAlertController(title: "Not Enough Resources", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
