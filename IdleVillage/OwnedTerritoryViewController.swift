@@ -8,12 +8,45 @@
 
 import UIKit
 
+private extension TerritoryType {
+    var upgradePrice: [Resource] {
+        let baseUpgradePrice: [Resource]
+        switch self {
+        case .empty:
+            let food = Resource(type: .food, amount: 100)
+            let wood = Resource(type: .wood, amount: 100)
+            baseUpgradePrice = [food, wood]
+        case .house:
+            let food = Resource(type: .food, amount: 100)
+            let wood = Resource(type: .wood, amount: 100)
+            baseUpgradePrice = [food, wood]
+        case .farming:
+            let food = Resource(type: .food, amount: 100)
+            let wood = Resource(type: .wood, amount: 100)
+            baseUpgradePrice = [food, wood]
+        case .woodChopping:
+            let food = Resource(type: .food, amount: 100)
+            let wood = Resource(type: .wood, amount: 100)
+            baseUpgradePrice = [food, wood]
+        case .stone:
+            let food = Resource(type: .food, amount: 100)
+            let wood = Resource(type: .wood, amount: 100)
+            baseUpgradePrice = [food, wood]
+        }
+        
+        return baseUpgradePrice
+    }
+}
+
 class OwnedTerritoryViewController: UIViewController {
     var territory: Territory
     let titleLabel = UILabel(frame: .zero)
+    let levelLabel = UILabel(frame: .zero)
     let occupancyLabel = UILabel(frame: .zero)
     let assignedLabel = UILabel(frame: .zero)
     let assignButton = UIButton(type: .system)
+    let upgradeButton = UIButton(type: .system)
+    let costLabel = UILabel(frame: .zero)
     
     init(territory: Territory) {
         self.territory = territory
@@ -27,15 +60,16 @@ class OwnedTerritoryViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         
+        [titleLabel, levelLabel, occupancyLabel, assignedLabel, costLabel].forEach { $0.textAlignment = .center }
+        
         titleLabel.font = UIFont.systemFont(ofSize: 25)
-        titleLabel.textAlignment = .center
         titleLabel.text = territory.type.displayString
-        occupancyLabel.textAlignment = .center
-        assignedLabel.textAlignment = .center
         updateText()
         assignButton.setTitle("Assign", for: .normal)
         assignButton.addTarget(self, action: #selector(assignTapped), for: .touchUpInside)
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, occupancyLabel, assignedLabel, assignButton])
+        upgradeButton.setTitle("Upgrade", for: .normal)
+        upgradeButton.addTarget(self, action: #selector(upgradeTapped), for: .touchUpInside)
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, levelLabel, occupancyLabel, assignedLabel, assignButton, upgradeButton, costLabel])
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .equalSpacing
@@ -51,8 +85,11 @@ class OwnedTerritoryViewController: UIViewController {
     
     func updateText() {
         occupancyLabel.text = "\(territory.assignedVillagers.count) of \(territory.maxOccupancy) villagers assigned"
+        levelLabel.text = "Level \(territory.level)"
         assignedLabel.text = territory.assignedVillagers.joined(separator: ", ")
         assignedLabel.isHidden = territory.assignedVillagers.isEmpty
+        let cost = territory.type.upgradePrice.map { "\($0.type.displayString): \($0.amount)" }.joined(separator: "   ")
+        costLabel.text = cost
     }
     
     @objc func assignTapped() {
@@ -65,5 +102,24 @@ class OwnedTerritoryViewController: UIViewController {
         }
         
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func upgradeTapped() {
+        let gameState = GameState.shared!
+        
+        let hasEnoughResources = !territory.type.upgradePrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
+        if hasEnoughResources {
+            territory.type.upgradePrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
+            let index = GameState.shared.territories.firstIndex { $0.type == territory.type }!
+            var updated = gameState.territories[index]
+            updated.level += 1
+            GameState.shared.territories[index] = updated
+            self.territory = updated
+            updateText()
+        } else {
+            let alert = UIAlertController(title: "Not Enough Resources", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
