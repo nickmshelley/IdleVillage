@@ -66,7 +66,7 @@ class BuildViewController: UITableViewController {
         if hasEnoughResources {
             territoryType.buildPrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
             let index = GameState.shared.territories.firstIndex { $0.type == .empty }!
-            GameState.shared.territories[index] = Territory(type: territoryType, maxOccupancy: 1, assignedVillagers: [])
+            GameState.shared.territories[index] = Territory(type: territoryType)
             navigationController?.popViewController(animated: true)
         } else {
             let alert = UIAlertController(title: "Not Enough Resources", message: nil, preferredStyle: .alert)

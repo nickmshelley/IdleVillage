@@ -33,6 +33,14 @@ enum TerritoryType: String, Codable {
 
 struct Territory: Codable {
     let type: TerritoryType
+    var level: Int
     var maxOccupancy: Int
     var assignedVillagers: [String]
+    
+    init(type: TerritoryType, level: Int = 1, maxOccupancy: Int = 1, assignedVillagers: [String] = []) {
+        self.type = type
+        self.level = level
+        self.maxOccupancy = maxOccupancy
+        self.assignedVillagers = assignedVillagers
+    }
 }

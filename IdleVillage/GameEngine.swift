@@ -70,7 +70,7 @@ struct GameEngine {
             monster.currentHealth = max(monster.currentHealth - amount, 0)
             if monster.currentHealth == 0 {
                 monster.assignedVillagers = []
-                updatedState.territories.append(Territory(type: .empty, maxOccupancy: 0, assignedVillagers: []))
+                updatedState.territories.append(Territory(type: .empty, maxOccupancy: 0))
             }
             
             updatedState.monsters[index] = monster
