@@ -71,6 +71,7 @@ class OwnedTerritoryViewController: UIViewController {
         updateText()
         assignButton.setTitle("Assign", for: .normal)
         assignButton.addTarget(self, action: #selector(assignTapped), for: .touchUpInside)
+        assignButton.isHidden = territory.type == .house
         upgradeButton.setTitle("Upgrade", for: .normal)
         upgradeButton.addTarget(self, action: #selector(upgradeTapped), for: .touchUpInside)
         let stackView = UIStackView(arrangedSubviews: [titleLabel, levelLabel, occupancyLabel, assignedLabel, assignButton, upgradeButton, costLabel])
@@ -94,6 +95,10 @@ class OwnedTerritoryViewController: UIViewController {
         assignedLabel.isHidden = territory.assignedVillagers.isEmpty
         let cost = territory.upgradePrice.map { "\($0.type.displayString): \($0.amount)" }.joined(separator: "   ")
         costLabel.text = cost
+        
+        let hidden = territory.level >= 5
+        upgradeButton.isHidden = hidden
+        costLabel.isHidden = hidden
     }
     
     @objc func assignTapped() {
