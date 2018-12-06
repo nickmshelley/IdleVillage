@@ -8,33 +8,37 @@
 
 import UIKit
 
-private extension TerritoryType {
+private extension Territory {
     var upgradePrice: [Resource] {
         let baseUpgradePrice: [Resource]
-        switch self {
+        switch type {
         case .empty:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            baseUpgradePrice = [food, wood]
+            baseUpgradePrice = []
         case .house:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            baseUpgradePrice = [food, wood]
+            baseUpgradePrice = type.buildPrice
         case .farming:
             let food = Resource(type: .food, amount: 100)
             let wood = Resource(type: .wood, amount: 100)
-            baseUpgradePrice = [food, wood]
+            let stone = Resource(type: .stone, amount: 100)
+            baseUpgradePrice = [food, wood, stone]
         case .woodChopping:
             let food = Resource(type: .food, amount: 100)
             let wood = Resource(type: .wood, amount: 100)
-            baseUpgradePrice = [food, wood]
+            let stone = Resource(type: .stone, amount: 100)
+            baseUpgradePrice = [food, wood, stone]
         case .stone:
             let food = Resource(type: .food, amount: 100)
             let wood = Resource(type: .wood, amount: 100)
-            baseUpgradePrice = [food, wood]
+            let stone = Resource(type: .stone, amount: 100)
+            baseUpgradePrice = [food, wood, stone]
+        case .management:
+            baseUpgradePrice = type.buildPrice
+        case .research:
+            baseUpgradePrice = type.buildPrice
         }
         
-        return baseUpgradePrice
+        let multiplier = Int(pow(2.0, Double(level)))
+        return baseUpgradePrice.map { Resource(type: $0.type, amount: $0.amount * multiplier) }
     }
 }
 
@@ -88,7 +92,7 @@ class OwnedTerritoryViewController: UIViewController {
         levelLabel.text = "Level \(territory.level)"
         assignedLabel.text = territory.assignedVillagers.joined(separator: ", ")
         assignedLabel.isHidden = territory.assignedVillagers.isEmpty
-        let cost = territory.type.upgradePrice.map { "\($0.type.displayString): \($0.amount)" }.joined(separator: "   ")
+        let cost = territory.upgradePrice.map { "\($0.type.displayString): \($0.amount)" }.joined(separator: "   ")
         costLabel.text = cost
     }
     
@@ -107,9 +111,9 @@ class OwnedTerritoryViewController: UIViewController {
     @objc func upgradeTapped() {
         let gameState = GameState.shared!
         
-        let hasEnoughResources = !territory.type.upgradePrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
+        let hasEnoughResources = !territory.upgradePrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
         if hasEnoughResources {
-            territory.type.upgradePrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
+            territory.upgradePrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
             let index = GameState.shared.territories.firstIndex { $0.type == territory.type }!
             var updated = gameState.territories[index]
             updated.level += 1

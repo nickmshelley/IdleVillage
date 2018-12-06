@@ -14,6 +14,8 @@ enum TerritoryType: String, Codable {
     case farming
     case woodChopping
     case stone
+    case management
+    case research
     
     var displayString: String {
         switch self {
@@ -27,6 +29,10 @@ enum TerritoryType: String, Codable {
             return "Forest"
         case .stone:
             return "Stone Quarry"
+        case .management:
+            return "Management Tower"
+        case .research:
+            return "Research Center"
         }
     }
 }

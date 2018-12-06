@@ -8,13 +8,16 @@
 
 import UIKit
 
-private extension TerritoryType {
+extension TerritoryType {
     var buildPrice: [Resource] {
         switch self {
         case .empty:
             return []
         case .house:
-            return []
+            let food = Resource(type: .food, amount: 500)
+            let wood = Resource(type: .wood, amount: 500)
+            let stone = Resource(type: .stone, amount: 500)
+            return [food, wood, stone]
         case .farming:
             return []
         case .woodChopping:
@@ -23,6 +26,16 @@ private extension TerritoryType {
             let food = Resource(type: .food, amount: 100)
             let wood = Resource(type: .wood, amount: 100)
             return [food, wood]
+        case .management:
+            let food = Resource(type: .food, amount: 300)
+            let wood = Resource(type: .wood, amount: 300)
+            let stone = Resource(type: .stone, amount: 300)
+            return [food, wood, stone]
+        case .research:
+            let food = Resource(type: .food, amount: 200)
+            let wood = Resource(type: .wood, amount: 200)
+            let stone = Resource(type: .stone, amount: 200)
+            return [food, wood, stone]
         }
     }
 }
@@ -35,6 +48,15 @@ class BuildViewController: UITableViewController {
         
         if !GameState.shared.territories.contains(where: { $0.type == .stone }) {
             available.append(.stone)
+        }
+        if !GameState.shared.territories.contains(where: { $0.type == .management }) {
+            available.append(.management)
+        }
+        if !GameState.shared.territories.contains(where: { $0.type == .research }) {
+            available.append(.research)
+        }
+        if GameState.shared.territories.filter({ $0.type == .house }).count < 2 {
+            available.append(.house)
         }
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")

@@ -31,17 +31,24 @@ struct GameState: Codable {
     }
     
     static func makeInitial() -> GameState {
-        let villagerNames = ["Adam", "Bob", "Carl", "Devin"]
+        let debug = true
+        
+        let villagerNames = ["Adam"]
         let villagers = villagerNames.map { Villager(name: $0, levels: [:]) }
         
-        let house = Territory(type: .house, maxOccupancy: 4, assignedVillagers: villagerNames)
-        let farming = Territory(type: .farming, maxOccupancy: 4, assignedVillagers: [])
-        let wood = Territory(type: .woodChopping, maxOccupancy: 4, assignedVillagers: [])
-        let territories = [house, farming, wood]
+        let house = Territory(type: .house, assignedVillagers: villagerNames)
+        let farming = Territory(type: .farming)
+        let wood = Territory(type: .woodChopping)
+        var territories = [house, farming, wood]
+        if debug {
+            territories.append(contentsOf: [Territory(type: .empty), Territory(type: .empty), Territory(type: .empty), Territory(type: .empty)])
+        }
         
-        let monsters = (0...10).map { Monster(health: Int(1 * pow(2, Double($0)))) }
+        let monsters = (0...10).map { Monster(health: Int(100 * pow(2, Double($0)))) }
         
-        return GameState(resources: [:], villagers: villagers, territories: territories, monsters: monsters)
+        let resources: [ResourceType: Resource] = debug ? [.food: Resource(type: .food, amount: 1000000), .wood: Resource(type: .wood, amount: 1000000), .stone: Resource(type: .stone, amount: 1000000)] : [:]
+        
+        return GameState(resources: resources, villagers: villagers, territories: territories, monsters: monsters)
     }
     
     static func assignVillager(_ villagerName: String, to territory: Territory) -> Territory? {
