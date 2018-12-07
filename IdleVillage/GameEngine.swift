@@ -38,18 +38,19 @@ struct GameEngine {
             case .house:
                 break
             case .farming:
-                updatedState.addResource(type: .food, amount: villagerPower(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count))
+                let amount = villagerPower(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count)
+                updatedState.addResource(type: .food, amount: amount * territory.level)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .woodChopping:
                 let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
                 let amount = villagerPower(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: turns)
-                updatedState.addResource(type: .wood, amount: amount)
+                updatedState.addResource(type: .wood, amount: amount * territory.level)
                 updatedState.addResource(type: .food, amount: -turns)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: turns)
             case .stone:
                 let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
                 let amount = villagerPower(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
-                updatedState.addResource(type: .stone, amount: amount)
+                updatedState.addResource(type: .stone, amount: amount * territory.level)
                 updatedState.addResource(type: .food, amount: -turns)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
             case .management:
