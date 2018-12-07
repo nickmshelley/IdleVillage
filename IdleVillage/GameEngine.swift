@@ -14,7 +14,7 @@ struct GameEngine {
     static let gameUpdatedNotification = Notification.Name(rawValue: "GameUpdatedNotification")
     
     func run() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { self.updateState() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { self.updateState() })
     }
     
     private func updateState(gameState: GameState = GameState.shared!) {

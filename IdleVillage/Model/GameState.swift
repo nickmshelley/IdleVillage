@@ -39,7 +39,7 @@ struct GameState: Codable {
     }
     
     static func makeInitial() -> GameState {
-        let debug = true
+        let debug = false
         
         let villagerNames = [namePool.randomElement()!]
         let villagers = villagerNames.map { Villager(name: $0, levels: [:]) }
