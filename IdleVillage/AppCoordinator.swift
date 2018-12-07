@@ -38,6 +38,16 @@ final class AppCoordinator {
     }
     
     private func loadGameState() {
-        GameState.shared = GameState.makeInitial()
+        guard let data = UserDefaults.standard.data(forKey: "GameState") else { return GameState.shared = GameState.makeInitial() }
+        
+        let decoder = JSONDecoder()
+        let gameState = try! decoder.decode(GameState.self, from: data)
+        GameState.shared = gameState
+    }
+    
+    func saveGameState() {
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(GameState.shared)
+        UserDefaults.standard.set(data, forKey: "GameState")
     }
 }

@@ -23,5 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         return true
     }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        coordinator.saveGameState()
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        coordinator.saveGameState()
+    }
 }
 
