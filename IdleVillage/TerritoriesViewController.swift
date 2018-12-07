@@ -60,7 +60,7 @@ class TerritoriesViewController: UICollectionViewController {
             case .empty:
                 navigationController?.pushViewController(BuildViewController(), animated: true)
             default:
-                navigationController?.pushViewController(OwnedTerritoryViewController(territory: territory), animated: true)
+                navigationController?.pushViewController(OwnedTerritoryViewController(index: indexPath.item), animated: true)
             }
         case .monster:
             navigationController?.pushViewController(MonsterTerritoryViewController(monster: monsters[indexPath.item]), animated: true)

@@ -44,6 +44,7 @@ private extension Territory {
 
 class OwnedTerritoryViewController: UIViewController {
     var territory: Territory
+    let index: Int
     let titleLabel = UILabel(frame: .zero)
     let levelLabel = UILabel(frame: .zero)
     let occupancyLabel = UILabel(frame: .zero)
@@ -52,8 +53,15 @@ class OwnedTerritoryViewController: UIViewController {
     let upgradeButton = UIButton(type: .system)
     let costLabel = UILabel(frame: .zero)
     
-    init(territory: Territory) {
-        self.territory = territory
+    init(index: Int) {
+        if GameState.shared.territories[index].type == .empty {
+            // Always use the first empty territory even if they tapped on a different one.
+            // That way there will never be empty territories between built ones
+            self.index = GameState.shared.territories.firstIndex { $0.type == .empty }!
+        } else {
+            self.index = index
+        }
+        self.territory = GameState.shared.territories[self.index]
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -119,9 +127,12 @@ class OwnedTerritoryViewController: UIViewController {
         let hasEnoughResources = !territory.upgradePrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
         if hasEnoughResources {
             territory.upgradePrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
-            let index = GameState.shared.territories.firstIndex { $0.type == territory.type }!
             var updated = gameState.territories[index]
             updated.level += 1
+            updated.maxOccupancy += 1
+            if territory.type == .house {
+                updated.assignedVillagers.append(GameState.addVillager())
+            }
             GameState.shared.territories[index] = updated
             self.territory = updated
             updateText()

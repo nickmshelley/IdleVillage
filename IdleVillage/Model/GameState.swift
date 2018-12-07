@@ -10,13 +10,21 @@ import Foundation
 
 struct GameState: Codable {
     static var shared: GameState!
-    
+    private static let namePool = ["Clare", "Cole", "Emily", "Braden", "Katelyn", "Ella", "Eloise", "Penny", "Jon", "Ryan"]
     static let villagersAssignedNotification = Notification.Name("VillagerAssigned")
     
     var resources: [ResourceType: Resource]
     var villagers: [Villager]
     var territories: [Territory]
     var monsters: [Monster]
+    
+    static func addVillager() -> String {
+        let existingNames = Set(GameState.shared.villagers.map { $0.name })
+        let name = GameState.namePool.filter { !existingNames.contains($0) }.randomElement()!
+        let newVillager = Villager(name: name, levels: [:])
+        GameState.shared.villagers.append(newVillager)
+        return name
+    }
     
     func currentResourceAmount(of type: ResourceType) -> Int {
         return resources[type]?.amount ?? 0
@@ -33,7 +41,7 @@ struct GameState: Codable {
     static func makeInitial() -> GameState {
         let debug = true
         
-        let villagerNames = ["Adam"]
+        let villagerNames = [namePool.randomElement()!]
         let villagers = villagerNames.map { Villager(name: $0, levels: [:]) }
         
         let house = Territory(type: .house, assignedVillagers: villagerNames)
