@@ -34,7 +34,7 @@ enum LevelType: String, Codable, CaseIterable {
     }
 }
 
-struct Level: Codable {
+struct Level: Codable, Equatable {
     let type: LevelType
     var currentLevel: Int
     var maxLevel: Int
