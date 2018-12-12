@@ -34,7 +34,14 @@ final class AppCoordinator {
         rootViewController.viewControllers = [territoryViewController, villagersController]
         rootViewController.selectedViewController = territoryViewController
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleGameUpdate), name: GameEngine.gameUpdatedNotification, object: nil)
+        
         GameEngine.shared.run()
+    }
+    
+    @objc func handleGameUpdate() {
+        rootViewController.viewControllers![0].tabBarItem.badgeValue = GameState.shared.territoryActionAvailable() ? "!" : nil
+        rootViewController.viewControllers![1].tabBarItem.badgeValue = GameState.shared.villagerActionAvailable() ? "!" : nil
     }
     
     private func loadGameState() {

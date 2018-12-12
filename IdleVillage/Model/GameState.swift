@@ -9,6 +9,7 @@
 import Foundation
 
 struct GameState: Codable {
+    static let debug = false
     static var shared: GameState!
     private static let namePool = ["Clare", "Cole", "Emily", "Braden", "Katelyn", "Ella", "Eloise", "Penny", "Jon", "Ryan"]
     static let villagersAssignedNotification = Notification.Name("VillagerAssigned")
@@ -30,6 +31,19 @@ struct GameState: Codable {
         return resources[type]?.amount ?? 0
     }
     
+    func territoryActionAvailable() -> Bool {
+        let canUpgrade = territories.contains { $0.canUpgrade() }
+        if canUpgrade { return true }
+        
+        return territories.contains { $0.type == .empty } && TerritoryType.allCases.contains { $0.canBuild() }
+    }
+    
+    func villagerActionAvailable() -> Bool {
+        return villagers.contains { villager in
+            villager.levels.values.contains { $0.currentExperience >= $0.maxExperience }
+        }
+    }
+    
     mutating func addResource(type: ResourceType, amount: Int) {
         resources[type] = Resource(type: type, amount: currentResourceAmount(of: type) + amount)
     }
@@ -39,8 +53,6 @@ struct GameState: Codable {
     }
     
     static func makeInitial() -> GameState {
-        let debug = false
-        
         let villagerNames = [namePool.randomElement()!]
         let villagers = villagerNames.map { Villager(name: $0) }
         
@@ -48,13 +60,13 @@ struct GameState: Codable {
         let farming = Territory(type: .farming)
         let wood = Territory(type: .woodChopping)
         var territories = [house, farming, wood]
-        if debug {
+        if GameState.debug {
             territories.append(contentsOf: [Territory(type: .empty), Territory(type: .empty), Territory(type: .empty), Territory(type: .empty)])
         }
         
         let monsters = (0...10).map { Monster(health: Int(100 * pow(2, Double($0)))) }
         
-        let resources: [ResourceType: Resource] = debug ? [.food: Resource(type: .food, amount: 1000000), .wood: Resource(type: .wood, amount: 1000000), .stone: Resource(type: .stone, amount: 1000000)] : [:]
+        let resources: [ResourceType: Resource] = GameState.debug ? [.food: Resource(type: .food, amount: 1000000), .wood: Resource(type: .wood, amount: 1000000), .stone: Resource(type: .stone, amount: 1000000)] : [:]
         
         return GameState(resources: resources, villagers: villagers, territories: territories, monsters: monsters)
     }

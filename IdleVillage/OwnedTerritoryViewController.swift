@@ -8,40 +8,6 @@
 
 import UIKit
 
-private extension Territory {
-    var upgradePrice: [Resource] {
-        let baseUpgradePrice: [Resource]
-        switch type {
-        case .empty:
-            baseUpgradePrice = []
-        case .house:
-            baseUpgradePrice = type.buildPrice
-        case .farming:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            let stone = Resource(type: .stone, amount: 100)
-            baseUpgradePrice = [food, wood, stone]
-        case .woodChopping:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            let stone = Resource(type: .stone, amount: 100)
-            baseUpgradePrice = [food, wood, stone]
-        case .stone:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            let stone = Resource(type: .stone, amount: 100)
-            baseUpgradePrice = [food, wood, stone]
-        case .management:
-            baseUpgradePrice = type.buildPrice
-        case .research:
-            baseUpgradePrice = type.buildPrice
-        }
-        
-        let multiplier = Int(pow(2.0, Double(level)))
-        return baseUpgradePrice.map { Resource(type: $0.type, amount: $0.amount * multiplier) }
-    }
-}
-
 class OwnedTerritoryViewController: UIViewController {
     var territory: Territory
     let index: Int
@@ -104,7 +70,7 @@ class OwnedTerritoryViewController: UIViewController {
         let cost = territory.upgradePrice.map { "\($0.type.displayString): \($0.amount)" }.joined(separator: "   ")
         costLabel.text = cost
         
-        let hidden = territory.level >= 5
+        let hidden = territory.level >= territory.maxLevel
         upgradeButton.isHidden = hidden
         costLabel.isHidden = hidden
     }
@@ -122,12 +88,9 @@ class OwnedTerritoryViewController: UIViewController {
     }
     
     @objc func upgradeTapped() {
-        let gameState = GameState.shared!
-        
-        let hasEnoughResources = !territory.upgradePrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
-        if hasEnoughResources {
+        if territory.canUpgrade() {
             territory.upgradePrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
-            var updated = gameState.territories[index]
+            var updated = GameState.shared.territories[index]
             updated.level += 1
             updated.maxOccupancy += 1
             if territory.type == .house {

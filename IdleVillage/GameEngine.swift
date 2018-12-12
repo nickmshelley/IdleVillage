@@ -14,7 +14,7 @@ struct GameEngine {
     static let gameUpdatedNotification = Notification.Name(rawValue: "GameUpdatedNotification")
     
     func run() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { self.updateState() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + (GameState.debug ? 1 : 3), execute: { self.updateState() })
     }
     
     private func updateState(gameState: GameState = GameState.shared!) {
@@ -103,7 +103,7 @@ struct GameEngine {
     }
     
     private func villagerPower(for villagerNames: [String], levelType: LevelType, gameState: GameState, amount: Int) -> Int {
-        return villagerNames.map { name in
+        return villagerNames.prefix(amount).map { name in
             let villager = gameState.villagers.first { $0.name == name }!
             return villager.levels[levelType]?.currentLevel ?? 1
         }.reduce(0, +)

@@ -38,6 +38,10 @@ extension TerritoryType {
             return [food, wood, stone]
         }
     }
+    
+    func canBuild() -> Bool {
+        return !buildPrice.isEmpty && buildPrice.allSatisfy { GameState.shared.currentResourceAmount(of: $0.type) >= $0.amount }
+    }
 }
 
 class BuildViewController: UITableViewController {
@@ -82,10 +86,8 @@ class BuildViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let territoryType = available[indexPath.row]
-        let gameState = GameState.shared!
         
-        let hasEnoughResources = !territoryType.buildPrice.map { gameState.currentResourceAmount(of: $0.type) >= $0.amount }.contains(false)
-        if hasEnoughResources {
+        if territoryType.canBuild() {
             territoryType.buildPrice.forEach { GameState.shared.addResource(type: $0.type, amount: -$0.amount) }
             let index = GameState.shared.territories.firstIndex { $0.type == .empty }!
             var territory = Territory(type: territoryType)
