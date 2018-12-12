@@ -21,7 +21,7 @@ struct GameState: Codable {
     static func addVillager() -> String {
         let existingNames = Set(GameState.shared.villagers.map { $0.name })
         let name = GameState.namePool.filter { !existingNames.contains($0) }.randomElement()!
-        let newVillager = Villager(name: name, levels: [:])
+        let newVillager = Villager(name: name)
         GameState.shared.villagers.append(newVillager)
         return name
     }
@@ -42,7 +42,7 @@ struct GameState: Codable {
         let debug = false
         
         let villagerNames = [namePool.randomElement()!]
-        let villagers = villagerNames.map { Villager(name: $0, levels: [:]) }
+        let villagers = villagerNames.map { Villager(name: $0) }
         
         let house = Territory(type: .house, assignedVillagers: villagerNames)
         let farming = Territory(type: .farming)
@@ -72,6 +72,10 @@ struct GameState: Codable {
             }
             GameState.shared.territories[index] = updated
             
+            if let villagerIndex = GameState.shared.villagers.firstIndex(where: { $0.name == villagerName }) {
+                GameState.shared.villagers[villagerIndex].assignedTerritory = updated.type.displayString
+            }
+            
             return updated
         }
         
@@ -87,6 +91,10 @@ struct GameState: Codable {
             var updated = GameState.shared.monsters[index]
             updated.assignedVillagers.append(villagerName)
             GameState.shared.monsters[index] = updated
+            
+            if let villagerIndex = GameState.shared.villagers.firstIndex(where: { $0.name == villagerName }) {
+                GameState.shared.villagers[villagerIndex].assignedTerritory = "Monster"
+            }
             
             return updated
         }
@@ -105,6 +113,10 @@ struct GameState: Codable {
             var updated = GameState.shared.monsters[index]
             updated.assignedVillagers.remove(at: updated.assignedVillagers.firstIndex(where: { $0 == villagerName })!)
             GameState.shared.monsters[index] = updated
+        }
+        
+        if let villagerIndex = GameState.shared.villagers.firstIndex(where: { $0.name == villagerName }) {
+            GameState.shared.villagers[villagerIndex].assignedTerritory = "Unassigned"
         }
     }
 }

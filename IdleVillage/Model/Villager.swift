@@ -11,6 +11,7 @@ import Foundation
 struct Villager: Codable {
     let name: String
     var levels: [LevelType: Level]
+    var assignedTerritory: String
     
     mutating func levelUp(type: LevelType) {
         var level = levels[type] ?? Level.initialLevel(of: type)
@@ -26,5 +27,11 @@ struct Villager: Codable {
         level.currentExperience = 0
         
         levels[type] = level
+    }
+    
+    init(name: String, levels: [LevelType: Level] = [:], assignedTerritory: String = "Unassigned") {
+        self.name = name
+        self.levels = levels
+        self.assignedTerritory = assignedTerritory
     }
 }

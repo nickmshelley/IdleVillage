@@ -41,7 +41,8 @@ class VillagersTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = villagers[indexPath.row].name
+        let villager = villagers[indexPath.row]
+        cell.textLabel?.text = villager.name + " (\(villager.assignedTerritory))"
         return cell
     }
     

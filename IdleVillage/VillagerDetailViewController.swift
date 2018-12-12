@@ -28,7 +28,7 @@ class VillagerDetailViewController: UIViewController {
         
         nameLabel.font = UIFont.systemFont(ofSize: 25)
         nameLabel.textAlignment = .center
-        nameLabel.text = villager.name
+        nameLabel.text = villager.name + " (\(villager.assignedTerritory))"
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .equalSpacing
@@ -53,6 +53,7 @@ class VillagerDetailViewController: UIViewController {
     }
     
     private func updateText() {
+        nameLabel.text = villager.name + " (\(villager.assignedTerritory))"
         LevelType.allCases.forEach { type in
             let level = villager.levels[type] ?? Level.initialLevel(of: type)
             viewByType[type]?.update(with: level)
