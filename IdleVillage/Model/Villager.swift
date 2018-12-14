@@ -34,4 +34,8 @@ struct Villager: Codable {
         self.levels = levels
         self.assignedTerritory = assignedTerritory
     }
+    
+    func canLevelUp() -> Bool {
+        return levels.values.contains { $0.currentExperience >= $0.maxExperience }
+    }
 }

@@ -42,7 +42,12 @@ class VillagersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let villager = villagers[indexPath.row]
-        cell.textLabel?.text = villager.name + " (\(villager.assignedTerritory))"
+        let attributedString = NSMutableAttributedString(string: villager.name + " (\(villager.assignedTerritory))")
+        if villager.canLevelUp() {
+            let actionString = NSAttributedString(string: " !", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
+            attributedString.append(actionString)
+        }
+        cell.textLabel?.attributedText = attributedString
         return cell
     }
     

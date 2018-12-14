@@ -36,9 +36,7 @@ struct GameState: Codable {
     }
     
     func villagerActionAvailable() -> Bool {
-        return villagers.contains { villager in
-            villager.levels.values.contains { $0.currentExperience >= $0.maxExperience }
-        }
+        return villagers.contains { $0.canLevelUp() }
     }
     
     mutating func addResource(type: ResourceType, amount: Int) {
