@@ -32,10 +32,7 @@ struct GameState: Codable {
     }
     
     func territoryActionAvailable() -> Bool {
-        let canUpgrade = territories.contains { $0.canUpgrade() }
-        if canUpgrade { return true }
-        
-        return territories.contains { $0.type == .empty } && TerritoryType.allCases.contains { $0.canBuild() }
+        return territories.contains { $0.canUpgrade() || $0.canBuild() }
     }
     
     func villagerActionAvailable() -> Bool {
@@ -80,7 +77,10 @@ struct GameState: Codable {
             var updated = GameState.shared.territories[index]
             updated.assignedVillagers.append(villagerName)
             if updated.assignedVillagers.count > updated.maxOccupancy {
-                updated.assignedVillagers.removeFirst()
+                let removed = updated.assignedVillagers.removeFirst()
+                if let villagerIndex = GameState.shared.villagers.firstIndex(where: { $0.name == removed }) {
+                    GameState.shared.villagers[villagerIndex].assignedTerritory = "Unassigned"
+                }
             }
             GameState.shared.territories[index] = updated
             

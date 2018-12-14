@@ -16,7 +16,12 @@ private enum SectionType {
 private struct Section {
     let title: String
     let type: SectionType
-    let items: [String]
+    let items: [Row]
+}
+
+private struct Row {
+    let title: String
+    let isActionAvailable: Bool
 }
 
 class TerritoriesViewController: UICollectionViewController {
@@ -48,7 +53,8 @@ class TerritoriesViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! TerritoryCell
         cell.backgroundColor = .white
-        cell.configure(with: sections[indexPath.section].items[indexPath.row])
+        let row = sections[indexPath.section].items[indexPath.row]
+        cell.configure(with: row.title, isActionAvailable: row.isActionAvailable)
         return cell
     }
     
@@ -71,10 +77,14 @@ class TerritoriesViewController: UICollectionViewController {
         territories = GameState.shared.territories
         self.monsters = GameState.shared.monsters.filter { $0.currentHealth > 0 }
         
-        let owned = territories.map { $0.type.displayString + "\n(\($0.assignedVillagers.count) of \($0.maxOccupancy))" }
+        let owned: [Row] = territories.map { territory in
+            let title: String = territory.type.displayString + "\n(\(territory.assignedVillagers.count) of \(territory.maxOccupancy))"
+            let hasAction = territory.canUpgrade() || territory.canBuild()
+            return Row(title: title, isActionAvailable: hasAction)
+        }
         let ownedSection = Section(title: "Owned Territories", type: .owned, items: owned)
         
-        let monsters = self.monsters.map { "Monster\n(\($0.currentHealth) of \($0.maxHealth))" }
+        let monsters = self.monsters.map { Row(title: "Monster\n(\($0.currentHealth) of \($0.maxHealth))", isActionAvailable: false) }
         let monsterSection = Section(title: "Monster Territories", type: .monster, items: monsters)
         
         sections = [ownedSection, monsterSection]

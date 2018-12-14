@@ -89,4 +89,10 @@ extension Territory {
     func canUpgrade() -> Bool {
         return level < maxLevel && !upgradePrice.isEmpty && upgradePrice.allSatisfy { GameState.shared.currentResourceAmount(of: $0.type) >= $0.amount }
     }
+    
+    func canBuild() -> Bool {
+        guard type == .empty else { return false }
+        
+        return TerritoryType.allCases.contains { $0.canBuild() }
+    }
 }
