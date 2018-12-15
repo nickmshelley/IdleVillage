@@ -8,49 +8,13 @@
 
 import UIKit
 
-extension TerritoryType {
-    var buildPrice: [Resource] {
-        switch self {
-        case .empty:
-            return []
-        case .house:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            let stone = Resource(type: .stone, amount: 100)
-            return [food, wood, stone]
-        case .farming:
-            return []
-        case .woodChopping:
-            return []
-        case .stone:
-            let food = Resource(type: .food, amount: 100)
-            let wood = Resource(type: .wood, amount: 100)
-            return [food, wood]
-//        case .management:
-//            let food = Resource(type: .food, amount: 300)
-//            let wood = Resource(type: .wood, amount: 300)
-//            let stone = Resource(type: .stone, amount: 300)
-//            return [food, wood, stone]
-//        case .research:
-//            let food = Resource(type: .food, amount: 200)
-//            let wood = Resource(type: .wood, amount: 200)
-//            let stone = Resource(type: .stone, amount: 200)
-//            return [food, wood, stone]
-        }
-    }
-    
-    func canBuild() -> Bool {
-        return !buildPrice.isEmpty && buildPrice.allSatisfy { GameState.shared.currentResourceAmount(of: $0.type) >= $0.amount }
-    }
-}
-
 class BuildViewController: UITableViewController {
     var available = [TerritoryType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !GameState.shared.territories.contains(where: { $0.type == .stone }) {
+        if GameState.shared.territories.filter({ $0.type == .stone }).count < TerritoryType.stone.maxAllowed {
             available.append(.stone)
         }
 //        if !GameState.shared.territories.contains(where: { $0.type == .management }) {
@@ -59,7 +23,7 @@ class BuildViewController: UITableViewController {
 //        if !GameState.shared.territories.contains(where: { $0.type == .research }) {
 //            available.append(.research)
 //        }
-        if GameState.shared.territories.filter({ $0.type == .house }).count < 2 {
+        if GameState.shared.territories.filter({ $0.type == .house }).count < TerritoryType.house.maxAllowed {
             available.append(.house)
         }
         

@@ -16,6 +16,7 @@
 		326F4F5221727EBD00A6BA37 /* IdleVillageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F5121727EBD00A6BA37 /* IdleVillageUITests.swift */; };
 		326F4F602172807800A6BA37 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F5F2172807800A6BA37 /* AppCoordinator.swift */; };
 		326F4F622172811900A6BA37 /* TerritoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F4F612172811900A6BA37 /* TerritoriesViewController.swift */; };
+		3277EC3B21C489DF00E105F2 /* TerritoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3277EC3A21C489DF00E105F2 /* TerritoryType.swift */; };
 		36137E9321BF0340008FE2EF /* ExperienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36137E9221BF0340008FE2EF /* ExperienceView.swift */; };
 		36191718219E33FE0050BF75 /* BuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36191717219E33FE0050BF75 /* BuildViewController.swift */; };
 		3625177D2177A205004FCA49 /* TerritoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625177C2177A205004FCA49 /* TerritoryCell.swift */; };
@@ -65,6 +66,7 @@
 		326F4F5321727EBD00A6BA37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		326F4F5F2172807800A6BA37 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = ../../idlevillage/IdleVillage/AppCoordinator.swift; sourceTree = "<group>"; };
 		326F4F612172811900A6BA37 /* TerritoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoriesViewController.swift; sourceTree = "<group>"; };
+		3277EC3A21C489DF00E105F2 /* TerritoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoryType.swift; sourceTree = "<group>"; };
 		36137E9221BF0340008FE2EF /* ExperienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceView.swift; sourceTree = "<group>"; };
 		36191717219E33FE0050BF75 /* BuildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildViewController.swift; sourceTree = "<group>"; };
 		3625177C2177A205004FCA49 /* TerritoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerritoryCell.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				362517802177E3D0004FCA49 /* GameState.swift */,
 				36C0277A2187708800E9FA3E /* Resource.swift */,
 				362517832177E42E004FCA49 /* Villager.swift */,
+				3277EC3A21C489DF00E105F2 /* TerritoryType.swift */,
 				362517852177E4E0004FCA49 /* Territory.swift */,
 				32033904217E83C6000712C7 /* Level.swift */,
 				32033906217E8D00000712C7 /* Monster.swift */,
@@ -319,6 +322,7 @@
 				36A1AE3F218254EC008DF0B4 /* OwnedTerritoryViewController.swift in Sources */,
 				36C0277B2187708800E9FA3E /* Resource.swift in Sources */,
 				36137E9321BF0340008FE2EF /* ExperienceView.swift in Sources */,
+				3277EC3B21C489DF00E105F2 /* TerritoryType.swift in Sources */,
 				326F4F602172807800A6BA37 /* AppCoordinator.swift in Sources */,
 				362517842177E42E004FCA49 /* Villager.swift in Sources */,
 				326F4F3221727EBC00A6BA37 /* AppDelegate.swift in Sources */,

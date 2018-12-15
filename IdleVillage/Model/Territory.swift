@@ -8,35 +8,6 @@
 
 import Foundation
 
-enum TerritoryType: String, Codable, CaseIterable {
-    case empty
-    case house
-    case farming
-    case woodChopping
-    case stone
-//    case management
-//    case research
-    
-    var displayString: String {
-        switch self {
-        case .empty:
-            return "Build"
-        case .house:
-            return "House"
-        case .farming:
-            return "Farm"
-        case .woodChopping:
-            return "Forest"
-        case .stone:
-            return "Stone Quarry"
-//        case .management:
-//            return "Management Tower"
-//        case .research:
-//            return "Research Center"
-        }
-    }
-}
-
 struct Territory: Codable {
     let type: TerritoryType
     var level: Int
@@ -93,6 +64,10 @@ extension Territory {
     func canBuild() -> Bool {
         guard type == .empty else { return false }
         
-        return TerritoryType.allCases.contains { $0.canBuild() }
+        let counts = GameState.shared.territories.reduce(into: [TerritoryType: Int]()) { (updatedCounts, territory) in
+            updatedCounts[territory.type] = updatedCounts[territory.type, default: 0] + 1
+        }
+        
+        return TerritoryType.allCases.contains { (counts[$0] ?? 0)      < $0.maxAllowed && $0.canBuild() }
     }
 }
