@@ -11,7 +11,7 @@ import Foundation
 struct GameState: Codable {
     static let debug = false
     static var shared: GameState!
-    private static let namePool = ["Clare", "Cole", "Emily", "Braden", "Katelyn", "Ella", "Eloise", "Penny", "Jon", "Ryan"]
+    private static let namePool = ["Clare", "Cole", "Emily", "Heather", "Nick", "Braden", "Katelyn", "Ella", "Lucas", "Roman", "Eloise", "Penny", "Little Jon", "Ryan", "Porter", "Myles", "Sunny", "Hank", "Melissa", "Brian", "Steven", "Tina", "Liz", "Kyle", "Big Jon", "Becky", "Julianne", "Rachel", "Grandma Sue Sue", "Grandma Kristen"]
     static let villagersAssignedNotification = Notification.Name("VillagerAssigned")
     
     var resources: [ResourceType: Resource]

@@ -14,8 +14,8 @@ enum TerritoryType: String, Codable, CaseIterable {
     case farming
     case woodChopping
     case stone
-    case management
-    case research
+//    case management
+//    case research
     
     var displayString: String {
         switch self {
@@ -29,10 +29,10 @@ enum TerritoryType: String, Codable, CaseIterable {
             return "Forest"
         case .stone:
             return "Stone Quarry"
-        case .management:
-            return "Management Tower"
-        case .research:
-            return "Research Center"
+//        case .management:
+//            return "Management Tower"
+//        case .research:
+//            return "Research Center"
         }
     }
 }
@@ -44,7 +44,7 @@ struct Territory: Codable {
     var maxOccupancy: Int
     var assignedVillagers: [String]
     
-    init(type: TerritoryType, level: Int = 1, maxLevel: Int = 5, maxOccupancy: Int = 1, assignedVillagers: [String] = []) {
+    init(type: TerritoryType, level: Int = 1, maxLevel: Int = 10, maxOccupancy: Int = 1, assignedVillagers: [String] = []) {
         self.type = type
         self.level = level
         self.maxLevel = maxLevel
@@ -62,9 +62,9 @@ extension Territory {
         case .house:
             baseUpgradePrice = type.buildPrice
         case .farming:
-            let food = Resource(type: .food, amount: 2)
-            let wood = Resource(type: .wood, amount: 2)
-            let stone = Resource(type: .stone, amount: 2)
+            let food = Resource(type: .food, amount: 100)
+            let wood = Resource(type: .wood, amount: 100)
+            let stone = Resource(type: .stone, amount: 100)
             baseUpgradePrice = [food, wood, stone]
         case .woodChopping:
             let food = Resource(type: .food, amount: 100)
@@ -76,10 +76,10 @@ extension Territory {
             let wood = Resource(type: .wood, amount: 100)
             let stone = Resource(type: .stone, amount: 100)
             baseUpgradePrice = [food, wood, stone]
-        case .management:
-            baseUpgradePrice = type.buildPrice
-        case .research:
-            baseUpgradePrice = type.buildPrice
+//        case .management:
+//            baseUpgradePrice = type.buildPrice
+//        case .research:
+//            baseUpgradePrice = type.buildPrice
         }
         
         let multiplier = Int(pow(2.0, Double(level)))

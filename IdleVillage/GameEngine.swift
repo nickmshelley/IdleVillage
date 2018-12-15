@@ -53,10 +53,10 @@ struct GameEngine {
                 updatedState.addResource(type: .stone, amount: amount * territory.level)
                 updatedState.addResource(type: .food, amount: -turns)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
-            case .management:
-                break
-            case .research:
-                break
+//            case .management:
+//                break
+//            case .research:
+//                break
             }
         }
         
