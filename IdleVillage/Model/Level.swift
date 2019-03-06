@@ -14,7 +14,7 @@ enum LevelType: String, Codable, CaseIterable {
     case mining
     case fighting
 //    case managing
-//    case researching
+    case researching
     
     var displayString: String {
         switch self {
@@ -28,8 +28,8 @@ enum LevelType: String, Codable, CaseIterable {
             return "Fighting"
 //        case .managing:
 //            return "Managing"
-//        case .researching:
-//            return "Researching"
+        case .researching:
+            return "Researching"
         }
     }
 }

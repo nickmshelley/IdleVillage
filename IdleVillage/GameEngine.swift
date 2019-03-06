@@ -42,23 +42,27 @@ struct GameEngine {
                 updatedState.addResource(type: .food, amount: amount * territory.level)
                 updatedState = updateExperience(for: territory.assignedVillagers, levelType: .farming, gameState: updatedState, amount: territory.assignedVillagers.count)
             case .woodChopping:
-                let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
-                let amount = villagerPower(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: turns)
-                updatedState.addResource(type: .wood, amount: amount * territory.level)
-                updatedState.addResource(type: .food, amount: -turns)
-                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .woodChopping, gameState: updatedState, amount: turns)
+                updatedState = updateResource(resourceType: .wood, levelType: .woodChopping, territory: territory, gameState: updatedState)
             case .stone:
-                let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
-                let amount = villagerPower(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
-                updatedState.addResource(type: .stone, amount: amount * territory.level)
-                updatedState.addResource(type: .food, amount: -turns)
-                updatedState = updateExperience(for: territory.assignedVillagers, levelType: .mining, gameState: updatedState, amount: turns)
+                updatedState = updateResource(resourceType: .stone, levelType: .mining, territory: territory, gameState: updatedState)
 //            case .management:
 //                break
-//            case .research:
-//                break
+            case .research:
+                updatedState = updateResource(resourceType: .research, levelType: .researching, territory: territory, gameState: updatedState)
             }
         }
+        
+        return updatedState
+    }
+    
+    private func updateResource(resourceType: ResourceType, levelType: LevelType, territory: Territory, gameState: GameState) -> GameState {
+        var updatedState = gameState
+        
+        let turns = min(updatedState.currentResourceAmount(of: .food), territory.assignedVillagers.count)
+        let amount = villagerPower(for: territory.assignedVillagers, levelType: levelType, gameState: updatedState, amount: turns)
+        updatedState.addResource(type: resourceType, amount: amount * territory.level)
+        updatedState.addResource(type: .food, amount: -turns)
+        updatedState = updateExperience(for: territory.assignedVillagers, levelType: levelType, gameState: updatedState, amount: turns)
         
         return updatedState
     }
@@ -72,6 +76,9 @@ struct GameEngine {
             let turns = min(updatedState.currentResourceAmount(of: .food), monster.assignedVillagers.count)
             let amount = villagerPower(for: monster.assignedVillagers, levelType: .fighting, gameState: updatedState, amount: turns)
             
+            updatedState = updateExperience(for: monster.assignedVillagers, levelType: .fighting, gameState: updatedState, amount: turns)
+            updatedState.addResource(type: .food, amount: -turns)
+            
             monster.currentHealth = max(monster.currentHealth - amount, 0)
             if monster.currentHealth == 0 {
                 monster.assignedVillagers = []
@@ -79,9 +86,6 @@ struct GameEngine {
             }
             
             updatedState.monsters[index] = monster
-            
-            updatedState = updateExperience(for: monster.assignedVillagers, levelType: .fighting, gameState: updatedState, amount: turns)
-            updatedState.addResource(type: .food, amount: -turns)
         }
         
         return updatedState

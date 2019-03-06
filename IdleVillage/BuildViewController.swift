@@ -20,9 +20,9 @@ class BuildViewController: UITableViewController {
 //        if !GameState.shared.territories.contains(where: { $0.type == .management }) {
 //            available.append(.management)
 //        }
-//        if !GameState.shared.territories.contains(where: { $0.type == .research }) {
-//            available.append(.research)
-//        }
+        if !GameState.shared.territories.contains(where: { $0.type == .research }) {
+            available.append(.research)
+        }
         if GameState.shared.territories.filter({ $0.type == .house }).count < TerritoryType.house.maxAllowed {
             available.append(.house)
         }

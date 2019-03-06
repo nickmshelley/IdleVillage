@@ -15,7 +15,7 @@ enum TerritoryType: String, Codable, CaseIterable {
     case woodChopping
     case stone
     //    case management
-    //    case research
+    case research
     
     var displayString: String {
         switch self {
@@ -31,8 +31,8 @@ enum TerritoryType: String, Codable, CaseIterable {
             return "Stone Quarry"
             //        case .management:
             //            return "Management Tower"
-            //        case .research:
-            //            return "Research Center"
+        case .research:
+            return "Research Center"
         }
     }
 }
@@ -60,11 +60,11 @@ extension TerritoryType {
             //            let wood = Resource(type: .wood, amount: 300)
             //            let stone = Resource(type: .stone, amount: 300)
             //            return [food, wood, stone]
-            //        case .research:
-            //            let food = Resource(type: .food, amount: 200)
-            //            let wood = Resource(type: .wood, amount: 200)
-            //            let stone = Resource(type: .stone, amount: 200)
-            //            return [food, wood, stone]
+        case .research:
+            let food = Resource(type: .food, amount: 200)
+            let wood = Resource(type: .wood, amount: 200)
+            let stone = Resource(type: .stone, amount: 200)
+            return [food, wood, stone]
         }
     }
     
@@ -82,6 +82,8 @@ extension TerritoryType {
         case .woodChopping:
             return 1
         case .stone:
+            return 1
+        case .research:
             return 1
         }
     }

@@ -49,8 +49,8 @@ extension Territory {
             baseUpgradePrice = [food, wood, stone]
 //        case .management:
 //            baseUpgradePrice = type.buildPrice
-//        case .research:
-//            baseUpgradePrice = type.buildPrice
+        case .research:
+            baseUpgradePrice = type.buildPrice
         }
         
         let multiplier = Int(pow(2.0, Double(level)))
